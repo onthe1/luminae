@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luminae — Your Memories, Curated.</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&display=swap');
+
+  :root {
+    --gold: #b89a6a;
+    --gold-dim: #7a6545;
+    --bg: #0b0a08;
+    --text-primary: #ede8df;
+    --text-secondary: #a09890;
+    --text-dim: #6a6560;
+    --text-muted: #3a3830;
+    --border: #222018;
+    --border-dim: #1a1814;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 48px;
+    border-bottom: 0.5px solid var(--border);
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(11,10,8,0.94);
+    backdrop-filter: blur(10px);
+  }
+
+  .logo {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--gold); }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+
+  .nav-links a {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--text-secondary); }
+
+  /* HERO */
+  #home {
+    min-height: 100vh;
+    padding-top: 72px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 260px;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('images/1.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+    z-index: 0;
+  }
+
+  .hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(11,10,8,0.85) 60%, rgba(11,10,8,0.95) 100%);
+    z-index: 1;
+  }
+
+  .hero-left {
+    padding: 0 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 0.5px solid var(--border);
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-line1 {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 17px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    display: block;
+    opacity: 0;
+    animation: fadeUp 1.4s ease forwards 0.2s;
+  }
+
+  .hero-line2 {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 17px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    opacity: 0;
+    animation: fadeUp 1.4s ease forwards 2s;
+  }
+
+  .hero-footer {
+    position: absolute;
+    bottom: 40px;
+    left: 48px;
+    display: flex;
+    gap: 20px;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 3.2s;
+  }
+
+  .hero-footer-item {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* FILM STRIP PANELS */
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    padding-top: 72px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .film-frame {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    min-height: 80px;
+    border-bottom: 0.5px solid var(--border-dim);
+  }
+
+  .film-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .film-frame:nth-child(1) { opacity: 0.25; }
+  .film-frame:nth-child(2) { opacity: 0.35; }
+  .film-frame:nth-child(3) { opacity: 0.45; }
+  .film-frame:nth-child(4) { opacity: 0.6; }
+
+  .film-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(11,10,8,0.4);
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 8px 10px;
+  }
+
+  .film-year {
+    font-size: 9px;
+    color: #2e2c24;
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 80px 48px;
+    border-top: 0.5px solid var(--border);
+    position: relative;
+  }
+
+  .section-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('images/7.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.04;
+    z-index: 0;
+  }
+
+  .section-content { position: relative; z-index: 1; }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 52px;
+  }
+
+  /* SERVICES */
+  .service-block {
+    padding: 32px 0;
+    border-top: 0.5px solid var(--border-dim);
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .service-block:last-child { border-bottom: 0.5px solid var(--border-dim); }
+
+  .service-title { font-size: 14px; font-weight: 400; color: var(--text-secondary); letter-spacing: 0.05em; margin-bottom: 6px; }
+  .service-desc { font-size: 12px; color: var(--text-muted); line-height: 1.65; }
+
+  .service-item {
+    font-size: 13px;
+    color: var(--text-dim);
+    padding: 9px 0;
+    border-bottom: 0.5px solid var(--border-dim);
+    letter-spacing: 0.02em;
+  }
+
+  .service-item:first-child { border-top: 0.5px solid var(--border-dim); }
+
+  .concierge-box {
+    background: rgba(15,14,11,0.8);
+    border: 0.5px solid #1e1c16;
+    border-radius: 3px;
+    padding: 20px 22px;
+  }
+
+  .concierge-item {
+    font-size: 13px;
+    color: var(--text-dim);
+    padding: 8px 0;
+    border-bottom: 0.5px solid var(--border-dim);
+    letter-spacing: 0.02em;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.55;
+  }
+
+  .concierge-item:last-of-type { border-bottom: none; }
+
+  .c-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold); opacity: 0.28; margin-top: 7px; flex-shrink: 0; }
+
+  .concierge-pricing {
+    display: flex;
+    gap: 32px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 0.5px solid var(--border-dim);
+  }
+
+  .price-val { font-size: 12px; font-weight: 300; color: var(--text-muted); letter-spacing: 0.04em; }
+  .price-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #252320; margin-top: 2px; }
+  .price-save { font-size: 9px; color: #252320; margin-top: 1px; }
+
+  /* PROCESS */
+  .process-step { display: flex; gap: 20px; align-items: flex-start; }
+  .step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .step-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); opacity: 0.4; margin-top: 7px; flex-shrink: 0; }
+  .step-dot.dim { background: var(--text-muted); opacity: 1; }
+  .step-connector { width: 0.5px; background: var(--border); flex: 1; min-height: 36px; }
+  .step-content { padding-bottom: 28px; flex: 1; }
+  .step-title { font-size: 16px; font-weight: 300; color: var(--text-secondary); letter-spacing: 0.02em; }
+  .step-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; letter-spacing: 0.03em; }
+
+  /* ABOUT */
+  #about { overflow: hidden; }
+
+  .about-img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+    opacity: 0.5;
+    margin-bottom: 48px;
+  }
+
+  .about-body { max-width: 540px; }
+  .about-para { font-size: 16px; font-weight: 300; color: var(--text-secondary); line-height: 1.85; margin-bottom: 28px; letter-spacing: 0.02em; }
+  .about-para.lead { font-size: 18px; color: var(--text-primary); }
+  .about-para.closing { font-size: 15px; color: var(--text-dim); font-style: italic; }
+
+  /* BEGIN */
+  .begin-intro { font-size: 14px; color: var(--text-dim); line-height: 1.7; max-width: 380px; margin-bottom: 48px; }
+
+  .begin-option {
+    padding: 22px 0;
+    border-top: 0.5px solid var(--border-dim);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .begin-option:last-of-type { border-bottom: 0.5px solid var(--border-dim); }
+  .begin-option:hover { opacity: 0.75; }
+
+  .begin-option-label { font-size: 16px; font-weight: 300; color: var(--text-secondary); letter-spacing: 0.02em; }
+  .begin-option-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.02em; }
+
+  .begin-action {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 0.5px solid var(--text-muted);
+    padding-bottom: 1px;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .begin-option:hover .begin-action { color: var(--gold); border-color: var(--gold); }
+
+  .gate {
+    display: none;
+    background: rgba(15,14,11,0.95);
+    border: 0.5px solid #1e1c16;
+    border-radius: 3px;
+    padding: 24px 28px;
+    margin-bottom: 2px;
+  }
+
+  .gate.open { display: block; }
+  .gate-title { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; }
+  .field { margin-bottom: 16px; }
+
+  .field label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 6px; }
+
+  .field input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid #2a2820;
+    padding: 8px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .field input::placeholder { color: #2a2820; }
+  .field input:focus { border-bottom-color: var(--gold); }
+
+  .gate-btn {
+    margin-top: 24px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: none;
+    border-bottom: 0.5px solid var(--gold);
+    padding-bottom: 1px;
+    cursor: pointer;
+    background: none;
+    font-family: 'Jost', sans-serif;
+    transition: opacity 0.2s;
+  }
+
+  .gate-btn:hover { opacity: 0.7; }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+  .footer-logo span { color: var(--gold-dim); }
+  .footer-copy { font-size: 10px; color: var(--text-muted); letter-spacing: 0.06em; }
+
+  /* SCROLL FADE */
+  .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#home" class="logo">Lumi<span>nae</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#begin">Begin</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-overlay"></div>
+
+  <div class="hero-left">
+    <span class="hero-line1">Your memories,</span>
+    <span class="hero-line2">curated.</span>
+    <div class="hero-footer">
+      <span class="hero-footer-item">Every format accepted</span>
+      <span class="hero-footer-item" style="color:#1e1c18;">·</span>
+      <span class="hero-footer-item">Handled with discretion</span>
+      <span class="hero-footer-item" style="color:#1e1c18;">·</span>
+      <span class="hero-footer-item">Delivered complete</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="film-frame">
+      <img src="images/2.jpg" alt="Film reel">
+      <div class="film-overlay"><span class="film-year">Super 8mm</span></div>
+    </div>
+    <div class="film-frame">
+      <img src="images/3.jpg" alt="Film slides">
+      <div class="film-overlay"><span class="film-year">35mm slides</span></div>
+    </div>
+    <div class="film-frame">
+      <img src="images/4.jpg" alt="VHS tapes">
+      <div class="film-overlay"><span class="film-year">VHS · Betamax</span></div>
+    </div>
+    <div class="film-frame">
+      <img src="images/5.jpg" alt="Audio cassettes">
+      <div class="film-overlay"><span class="film-year">Audio</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section fade-in">
+  <div class="section-bg"></div>
+  <div class="section-content">
+    <div class="section-label">Services</div>
+
+    <div class="service-block">
+      <div>
+        <div class="service-title">Core Services</div>
+        <div class="service-desc">All media formats, fully digitized, organized and cataloged.</div>
+      </div>
+      <div>
+        <div class="service-item">Photos & film slides</div>
+        <div class="service-item">All video and audio formats</div>
+        <div class="service-item">Custom inventory design & cataloging</div>
+        <div class="service-item">Data extraction from all digital storage formats</div>
+      </div>
+    </div>
+
+    <div class="service-block">
+      <div>
+        <div class="service-title">Premium Services</div>
+        <div class="service-desc">Extend and elevate your archive with expert restoration and enhancement.</div>
+      </div>
+      <div>
+        <div class="service-item">Photo restoration</div>
+        <div class="service-item">Photo enhancement</div>
+        <div class="service-item">Video enhancement</div>
+        <div class="service-item">Audio / video editing</div>
+        <div class="service-item">Personal digital organization</div>
+      </div>
+    </div>
+
+    <div class="service-block">
+      <div>
+        <div class="service-title">Luminae Concierge</div>
+        <div class="service-desc">Your archive, maintained. Your memories, always within reach.</div>
+      </div>
+      <div class="concierge-box">
+        <div class="concierge-item"><div class="c-dot"></div><div>Secure cloud storage up to 1TB, maintenance & scheduled backups</div></div>
+        <div class="concierge-item"><div class="c-dot"></div><div>Digital custodian services — routine data health monitoring & on-demand media retrieval</div></div>
+        <div class="concierge-item"><div class="c-dot"></div><div>Priority concierge access</div></div>
+        <div class="concierge-pricing">
+          <div><div class="price-val">$500 / mo</div><div class="price-label">Monthly</div></div>
+          <div><div class="price-val">$4,500 / yr</div><div class="price-label">Annual</div><div class="price-save">Save $1,500</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="section fade-in">
+  <div class="section-bg"></div>
+  <div class="section-content">
+    <div class="section-label">Process</div>
+
+    <div class="process-step">
+      <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+      <div class="step-content"><div class="step-title">In-person consultation & initial media inventory</div></div>
+    </div>
+    <div class="process-step">
+      <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+      <div class="step-content"><div class="step-title">Custom quote</div></div>
+    </div>
+    <div class="process-step">
+      <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+      <div class="step-content"><div class="step-title">Media transported to Luminae Studio</div></div>
+    </div>
+    <div class="process-step">
+      <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+      <div class="step-content"><div class="step-title">Digitized, restored & catalogued</div></div>
+    </div>
+    <div class="process-step">
+      <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+      <div class="step-content"><div class="step-title">Personal delivery of originals and complete digital archive</div></div>
+    </div>
+    <div class="process-step">
+      <div class="step-line"><div class="step-dot dim"></div></div>
+      <div class="step-content">
+        <div class="step-title">Concierge onboarding</div>
+        <div class="step-note">Opt-in required</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section fade-in">
+  <div class="section-bg"></div>
+  <div class="section-content">
+    <div class="section-label">About</div>
+    <img src="images/6.jpg" alt="White glove handling of archive" class="about-img">
+    <div class="about-body">
+      <div class="about-para lead">Luminae was built on a simple truth. Physical media doesn't last forever, but your legacy should.</div>
+      <div class="about-para">Photos fade. Film degrades. Hard drives fail. Camera cards corrupt. And with them, the moments that matter most can disappear forever.</div>
+      <div class="about-para">With 25 years of experience in television, digital media and high-end client tech services, we understand what it means to handle irreplaceable things with care. Our clients expect nothing less than the best.</div>
+      <div class="about-para closing">No middlemen. No shortcuts. Just a trusted team dedicated to preserving your story.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BEGIN -->
+<section id="begin" class="section fade-in">
+  <div class="section-bg"></div>
+  <div class="section-content">
+    <div class="section-label">Begin</div>
+    <div class="begin-intro">Choose the option that feels right. One is all you need.</div>
+
+    <div class="begin-option" onclick="toggleGate('gate-schedule')">
+      <div>
+        <div class="begin-option-label">Book a consultation</div>
+        <div class="begin-option-sub">Schedule a call at your convenience</div>
+      </div>
+      <div class="begin-action">Schedule →</div>
+    </div>
+    <div class="gate" id="gate-schedule">
+      <div class="gate-title">A few details first</div>
+      <div class="field"><label>Full name</label><input type="text" placeholder="Your name" id="s-name"></div>
+      <div class="field"><label>Title / role</label><input type="text" placeholder="e.g. Estate Manager, Personal Assistant" id="s-title"></div>
+      <div class="field"><label>Email</label><input type="email" placeholder="your@email.com" id="s-email"></div>
+      <div class="field"><label>Mobile</label><input type="tel" placeholder="+1 (000) 000-0000" id="s-phone"></div>
+      <button class="gate-btn" onclick="openSchedule()">Continue to scheduling →</button>
+    </div>
+
+    <div class="begin-option" onclick="toggleGate('gate-text')">
+      <div>
+        <div class="begin-option-label">Send us a message</div>
+        <div class="begin-option-sub">Opens a pre-filled text directly to our team</div>
+      </div>
+      <div class="begin-action">Text us →</div>
+    </div>
+    <div class="gate" id="gate-text">
+      <div class="gate-title">A few details first</div>
+      <div class="field"><label>Full name</label><input type="text" placeholder="Your name" id="t-name"></div>
+      <div class="field"><label>Title / role</label><input type="text" placeholder="e.g. Estate Manager, Personal Assistant" id="t-title"></div>
+      <div class="field"><label>Email</label><input type="email" placeholder="your@email.com" id="t-email"></div>
+      <div class="field"><label>Mobile</label><input type="tel" placeholder="+1 (000) 000-0000" id="t-phone"></div>
+      <button class="gate-btn" onclick="openText()">Continue to message →</button>
+    </div>
+
+    <div class="begin-option" onclick="toggleGate('gate-form')">
+      <div>
+        <div class="begin-option-label">Tell us about your collection</div>
+        <div class="begin-option-sub">A brief form to help us understand your needs</div>
+      </div>
+      <div class="begin-action">Begin →</div>
+    </div>
+    <div class="gate" id="gate-form">
+      <div class="gate-title">A few details first</div>
+      <div class="field"><label>Full name</label><input type="text" placeholder="Your name" id="f-name"></div>
+      <div class="field"><label>Title / role</label><input type="text" placeholder="e.g. Estate Manager, Personal Assistant" id="f-title"></div>
+      <div class="field"><label>Email</label><input type="email" placeholder="your@email.com" id="f-email"></div>
+      <div class="field"><label>Mobile</label><input type="tel" placeholder="+1 (000) 000-0000" id="f-phone"></div>
+      <div class="field"><label>Tell us about your collection</label><input type="text" placeholder="Rough idea of formats and volume" id="f-collection"></div>
+      <button class="gate-btn" onclick="submitForm()">Submit →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Lumi<span>nae</span></div>
+  <div class="footer-copy">© 2025 Luminae. All rights reserved.</div>
+</footer>
+
+<script>
+  function toggleGate(id) {
+    document.querySelectorAll('.gate').forEach(function(g) { if (g.id !== id) g.classList.remove('open'); });
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  function openSchedule() { window.open('https://calendly.com', '_blank'); }
+
+  function openText() {
+    var name = document.getElementById('t-name').value || '';
+    var body = 'Hi Luminae' + (name ? ', my name is ' + name + '.' : '.') + ' I would like to learn more about your services.';
+    window.location.href = 'sms:+13232446781?body=' + encodeURIComponent(body);
+  }
+
+  function submitForm() {
+    var name = document.getElementById('f-name').value;
+    alert('Thank you' + (name ? ', ' + name : '') + '. We will be in touch shortly.');
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+</script>
+</body>
+</html>
