@@ -11,10 +11,10 @@
     --gold: #b89a6a;
     --gold-dim: #7a6545;
     --bg: #0e0d0b;
-    --text-primary: #ede8df;
+    --text-primary: #e8e2d8;
     --text-secondary: #b0a898;
-    --text-dim: #7a7570;
-    --text-muted: #454035;
+    --text-dim: #7a7468;
+    --text-muted: #484038;
     --border: #252218;
     --border-dim: #1c1a14;
   }
@@ -28,6 +28,7 @@
     font-family: 'Jost', sans-serif;
     font-weight: 300;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   /* NAV */
@@ -35,13 +36,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 32px;
+    padding: 22px 48px;
     border-bottom: 0.5px solid var(--border);
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
     background: rgba(14,13,11,0.96);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
   }
 
   .logo {
@@ -52,148 +53,86 @@
     text-transform: uppercase;
     color: var(--text-primary);
     text-decoration: none;
+    cursor: pointer;
   }
 
   .logo span { color: var(--gold); }
 
-  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
 
   .nav-links a {
     font-size: 11px;
-    color: var(--text-dim);
+    color: var(--text-muted);
     text-decoration: none;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     transition: color 0.3s;
+    cursor: pointer;
   }
 
-  .nav-links a:hover { color: var(--text-secondary); }
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--text-secondary); }
 
-  /* HERO */
-  #home {
+  /* PAGES */
+  .page {
+    display: none;
     min-height: 100vh;
-    padding-top: 62px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    padding-top: 66px;
   }
 
-  .hero-bg {
+  .page.active { display: flex; flex-direction: column; }
+
+  /* HOME PAGE */
+  #page-home {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home-bg {
     position: absolute;
     inset: 0;
     background-image: url('images/1.jpg');
     background-size: cover;
     background-position: center;
-    opacity: 0.25;
+    opacity: 0.45;
     z-index: 0;
   }
 
-  .hero-bg-overlay {
+  .home-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(14,13,11,0.6) 0%, rgba(14,13,11,0.92) 100%);
+    background: radial-gradient(ellipse at center, rgba(14,13,11,0.3) 0%, rgba(14,13,11,0.85) 100%);
     z-index: 1;
   }
 
-  .hero-center {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 60px 32px 40px;
+  .home-content {
     position: relative;
     z-index: 2;
+    text-align: center;
+    padding: 48px;
   }
 
-  .hero-line1 {
-    font-family: 'Jost', sans-serif;
+  .home-line1 {
+    font-size: 24px;
     font-weight: 200;
-    font-size: 22px;
-    letter-spacing: 0.26em;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--text-primary);
     display: block;
     opacity: 0;
-    animation: fadeUp 1.4s ease forwards 0.2s;
+    animation: fadeUp 1.4s ease forwards 0.3s;
   }
 
-  .hero-line2 {
-    font-family: 'Jost', sans-serif;
+  .home-line2 {
+    font-size: 24px;
     font-weight: 200;
-    font-size: 22px;
-    letter-spacing: 0.26em;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--gold);
     display: block;
     opacity: 0;
     animation: fadeUp 1.4s ease forwards 2s;
-    margin-bottom: 48px;
-  }
-
-  .hero-strip {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-    width: 100%;
-    position: relative;
-    z-index: 2;
-    height: 180px;
-  }
-
-  .film-frame {
-    position: relative;
-    overflow: hidden;
-    height: 100%;
-  }
-
-  .film-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-  }
-
-  .film-frame:nth-child(1) { opacity: 0.25; }
-  .film-frame:nth-child(2) { opacity: 0.38; }
-  .film-frame:nth-child(3) { opacity: 0.5; }
-  .film-frame:nth-child(4) { opacity: 0.65; }
-
-  .film-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(14,13,11,0.3);
-    display: flex;
-    align-items: flex-end;
-    padding: 8px;
-  }
-
-  .film-label {
-    font-size: 8px;
-    color: #2e2c24;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .hero-footer {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    padding: 16px 32px;
-    border-top: 0.5px solid var(--border-dim);
-    position: relative;
-    z-index: 2;
-    opacity: 0;
-    animation: fadeUp 1.2s ease forwards 3.2s;
-  }
-
-  .hero-footer-item {
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
   }
 
   @keyframes fadeUp {
@@ -201,30 +140,60 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* SECTIONS */
-  .section {
-    padding: 64px 32px;
-    border-top: 0.5px solid var(--border);
+  /* SPLIT LAYOUT PAGES */
+  .split-page {
+    flex: 1;
+    display: flex;
+    min-height: calc(100vh - 66px);
   }
 
-  .section-label {
+  .split-left {
+    width: 52%;
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .split-right {
+    width: 48%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .split-right img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.5;
+  }
+
+  .split-right-fade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--bg) 0%, rgba(14,13,11,0.5) 35%, rgba(14,13,11,0) 100%);
+    z-index: 1;
+  }
+
+  /* SECTION LABELS & TEXT */
+  .sec-label {
     font-size: 9px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--text-muted);
     margin-bottom: 40px;
   }
 
   /* SERVICES */
-  .service-block {
-    padding: 28px 0;
-    border-top: 0.5px solid var(--border-dim);
-  }
-
-  .service-block:last-child { border-bottom: 0.5px solid var(--border-dim); }
+  .service-block { margin-bottom: 36px; }
 
   .service-title {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 400;
     color: var(--text-secondary);
     letter-spacing: 0.04em;
@@ -235,25 +204,31 @@
     font-size: 12px;
     color: var(--text-muted);
     line-height: 1.6;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   .service-item {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text-dim);
     padding: 9px 0;
     border-bottom: 0.5px solid var(--border-dim);
     letter-spacing: 0.02em;
   }
 
-  .service-item:first-child { border-top: 0.5px solid var(--border-dim); }
+  .service-item:first-of-type { border-top: 0.5px solid var(--border-dim); }
+
+  .service-divider {
+    height: 0.5px;
+    background: var(--border);
+    margin: 32px 0;
+  }
 
   .concierge-box {
-    background: #111009;
+    background: rgba(18,16,12,0.8);
     border: 0.5px solid var(--border);
     border-radius: 3px;
-    padding: 18px 20px;
-    margin-top: 16px;
+    padding: 20px 22px;
+    margin-top: 14px;
   }
 
   .concierge-item {
@@ -261,7 +236,6 @@
     color: var(--text-dim);
     padding: 8px 0;
     border-bottom: 0.5px solid var(--border-dim);
-    letter-spacing: 0.02em;
     display: flex;
     gap: 10px;
     align-items: flex-start;
@@ -275,7 +249,7 @@
     height: 3px;
     border-radius: 50%;
     background: var(--gold);
-    opacity: 0.28;
+    opacity: 0.3;
     margin-top: 7px;
     flex-shrink: 0;
   }
@@ -288,38 +262,34 @@
     border-top: 0.5px solid var(--border-dim);
   }
 
-  .price-val { font-size: 12px; color: var(--text-muted); letter-spacing: 0.04em; }
+  .price-val { font-size: 12px; color: var(--text-muted); }
   .price-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #2a2820; margin-top: 2px; }
   .price-save { font-size: 9px; color: #2a2820; margin-top: 1px; }
 
   /* PROCESS */
   .process-step { display: flex; gap: 18px; align-items: flex-start; }
   .step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-  .step-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); opacity: 0.4; margin-top: 7px; flex-shrink: 0; }
+  .step-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); opacity: 0.45; margin-top: 7px; }
   .step-dot.dim { background: var(--text-muted); opacity: 1; }
   .step-connector { width: 0.5px; background: var(--border); flex: 1; min-height: 32px; }
   .step-content { padding-bottom: 24px; flex: 1; }
-  .step-title { font-size: 15px; font-weight: 300; color: var(--text-secondary); letter-spacing: 0.02em; line-height: 1.4; }
-  .step-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; letter-spacing: 0.03em; }
+  .step-title { font-size: 16px; font-weight: 300; color: var(--text-secondary); line-height: 1.4; }
+  .step-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
 
   /* ABOUT */
-  .about-img {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-    object-position: center 30%;
-    display: block;
-    opacity: 0.45;
-    margin-bottom: 40px;
-    border-radius: 2px;
+  .about-para {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.85;
+    margin-bottom: 24px;
   }
 
-  .about-para { font-size: 15px; font-weight: 300; color: var(--text-secondary); line-height: 1.85; margin-bottom: 24px; letter-spacing: 0.01em; }
-  .about-para.lead { font-size: 17px; color: var(--text-primary); }
-  .about-para.closing { font-size: 14px; color: var(--text-dim); font-style: italic; }
+  .about-para.lead { font-size: 18px; color: var(--text-primary); }
+  .about-para.closing { font-size: 15px; color: var(--text-dim); font-style: italic; }
 
   /* BEGIN */
-  .begin-intro { font-size: 14px; color: var(--text-dim); line-height: 1.7; margin-bottom: 40px; }
+  .begin-intro { font-size: 15px; color: var(--text-dim); line-height: 1.7; margin-bottom: 40px; }
 
   .begin-option {
     padding: 20px 0;
@@ -333,10 +303,10 @@
   }
 
   .begin-option:last-of-type { border-bottom: 0.5px solid var(--border-dim); }
-  .begin-option:hover { opacity: 0.75; }
+  .begin-option:hover { opacity: 0.7; }
 
-  .begin-option-label { font-size: 15px; font-weight: 300; color: var(--text-secondary); letter-spacing: 0.02em; }
-  .begin-option-sub { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+  .begin-option-label { font-size: 16px; font-weight: 300; color: var(--text-secondary); }
+  .begin-option-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
 
   .begin-action {
     font-size: 10px;
@@ -354,7 +324,7 @@
 
   .gate {
     display: none;
-    background: #111009;
+    background: rgba(18,16,12,0.95);
     border: 0.5px solid var(--border);
     border-radius: 3px;
     padding: 22px 24px;
@@ -405,276 +375,242 @@
     cursor: pointer;
     background: none;
     font-family: 'Jost', sans-serif;
-    transition: opacity 0.2s;
   }
-
-  .gate-btn:hover { opacity: 0.7; }
 
   /* FOOTER */
   footer {
     border-top: 0.5px solid var(--border);
-    padding: 24px 32px;
+    padding: 22px 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
   }
 
   .footer-logo { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
   .footer-logo span { color: var(--gold-dim); }
   .footer-copy { font-size: 10px; color: var(--text-muted); letter-spacing: 0.06em; }
 
-  /* SCROLL FADE */
-  .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.9s ease, transform 0.9s ease; }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-  /* DESKTOP */
-  @media (min-width: 768px) {
-    nav { padding: 24px 48px; }
-    .nav-links { gap: 32px; }
-    .nav-links a { font-size: 12px; }
-
-    #home { flex-direction: row; min-height: 100vh; }
-
-    .hero-center {
-      flex: 1;
-      padding: 80px 48px;
-      align-items: flex-start;
-      text-align: left;
-      border-right: 0.5px solid var(--border);
-    }
-
-    .hero-line1, .hero-line2 { font-size: 22px; }
-
-    .hero-strip {
-      width: 260px;
-      grid-template-columns: 1fr;
-      grid-template-rows: repeat(4, 1fr);
-      height: auto;
-      flex-shrink: 0;
-    }
-
-    .hero-footer {
-      justify-content: flex-start;
-      border-top: none;
-      padding: 0;
-      position: absolute;
-      bottom: 40px;
-      left: 48px;
-    }
-
-    .section { padding: 80px 48px; }
-    .section-label { margin-bottom: 52px; }
-
-    .service-block {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 56px;
-      align-items: start;
-    }
-
-    .service-desc { margin-bottom: 0; }
-
-    .concierge-box { margin-top: 0; }
-
-    .about-img { height: 360px; }
-    .about-para { font-size: 16px; }
-    .about-para.lead { font-size: 18px; }
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 18px 24px; }
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 10px; letter-spacing: 0.08em; }
+    .home-line1, .home-line2 { font-size: 18px; letter-spacing: 0.2em; }
+    .split-page { flex-direction: column; }
+    .split-left { width: 100%; padding: 40px 24px; }
+    .split-right { width: 100%; height: 240px; }
+    .split-right-fade { background: linear-gradient(to bottom, var(--bg) 0%, rgba(14,13,11,0) 100%); }
+    footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
   }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="#home" class="logo">Lumi<span>nae</span></a>
+  <a class="logo" onclick="showPage('home')">Lumi<span>nae</span></a>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#begin">Begin</a></li>
+    <li><a onclick="showPage('services')" id="nav-services">Services</a></li>
+    <li><a onclick="showPage('process')" id="nav-process">Process</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a onclick="showPage('begin')" id="nav-begin">Begin</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
-<section id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-bg-overlay"></div>
-
-  <div class="hero-center">
-    <span class="hero-line1">Your memories,</span>
-    <span class="hero-line2">curated.</span>
-    <div class="hero-footer">
-      <span class="hero-footer-item">Every format accepted</span>
-      <span class="hero-footer-item" style="color:#1e1c18;">·</span>
-      <span class="hero-footer-item">Handled with discretion</span>
-      <span class="hero-footer-item" style="color:#1e1c18;">·</span>
-      <span class="hero-footer-item">Delivered complete</span>
-    </div>
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="home-bg"></div>
+  <div class="home-overlay"></div>
+  <div class="home-content">
+    <span class="home-line1">Your memories,</span>
+    <span class="home-line2">curated.</span>
   </div>
-
-  <div class="hero-strip">
-    <div class="film-frame"><img src="images/2.jpg" alt="Film reel"><div class="film-overlay"><span class="film-label">Super 8mm</span></div></div>
-    <div class="film-frame"><img src="images/3.jpg" alt="Film slides"><div class="film-overlay"><span class="film-label">35mm slides</span></div></div>
-    <div class="film-frame"><img src="images/4.jpg" alt="VHS tapes"><div class="film-overlay"><span class="film-label">VHS · Betamax</span></div></div>
-    <div class="film-frame"><img src="images/5.jpg" alt="Audio cassettes"><div class="film-overlay"><span class="film-label">Audio</span></div></div>
-  </div>
-</section>
+</div>
 
 <!-- SERVICES -->
-<section id="services" class="section fade-in">
-  <div class="section-label">Services</div>
+<div id="page-services" class="page">
+  <div class="split-page">
+    <div class="split-left">
+      <div class="sec-label">Services</div>
 
-  <div class="service-block">
-    <div>
-      <div class="service-title">Core Services</div>
-      <div class="service-desc">All media formats, fully digitized, organized and cataloged.</div>
-    </div>
-    <div>
-      <div class="service-item">Photos & film slides</div>
-      <div class="service-item">All video and audio formats</div>
-      <div class="service-item">Custom inventory design & cataloging</div>
-      <div class="service-item">Data extraction from all digital storage formats</div>
-    </div>
-  </div>
+      <div class="service-block">
+        <div class="service-title">Core Services</div>
+        <div class="service-desc">All media formats, fully digitized, organized and cataloged.</div>
+        <div class="service-item">Photos & film slides</div>
+        <div class="service-item">All video and audio formats</div>
+        <div class="service-item">Custom inventory design & cataloging</div>
+        <div class="service-item">Data extraction from all digital storage formats</div>
+      </div>
 
-  <div class="service-block">
-    <div>
-      <div class="service-title">Premium Services</div>
-      <div class="service-desc">Extend and elevate your archive with expert restoration and enhancement.</div>
-    </div>
-    <div>
-      <div class="service-item">Photo restoration</div>
-      <div class="service-item">Photo enhancement</div>
-      <div class="service-item">Video enhancement</div>
-      <div class="service-item">Audio / video editing</div>
-      <div class="service-item">Personal digital organization</div>
-    </div>
-  </div>
+      <div class="service-divider"></div>
 
-  <div class="service-block">
-    <div>
-      <div class="service-title">Luminae Concierge</div>
-      <div class="service-desc">Your archive, maintained. Your memories, always within reach.</div>
-    </div>
-    <div class="concierge-box">
-      <div class="concierge-item"><div class="c-dot"></div><div>Secure cloud storage up to 1TB, maintenance & scheduled backups</div></div>
-      <div class="concierge-item"><div class="c-dot"></div><div>Digital custodian services — routine data health monitoring & on-demand media retrieval</div></div>
-      <div class="concierge-item"><div class="c-dot"></div><div>Priority concierge access</div></div>
-      <div class="concierge-pricing">
-        <div><div class="price-val">$500 / mo</div><div class="price-label">Monthly</div></div>
-        <div><div class="price-val">$4,500 / yr</div><div class="price-label">Annual</div><div class="price-save">Save $1,500</div></div>
+      <div class="service-block">
+        <div class="service-title">Premium Services</div>
+        <div class="service-desc">Extend and elevate your archive with expert restoration and enhancement.</div>
+        <div class="service-item">Photo restoration</div>
+        <div class="service-item">Photo enhancement</div>
+        <div class="service-item">Video enhancement</div>
+        <div class="service-item">Audio / video editing</div>
+        <div class="service-item">Personal digital organization</div>
+      </div>
+
+      <div class="service-divider"></div>
+
+      <div class="service-block">
+        <div class="service-title">Luminae Concierge</div>
+        <div class="service-desc">Your archive, maintained. Your memories, always within reach.</div>
+        <div class="concierge-box">
+          <div class="concierge-item"><div class="c-dot"></div><div>Secure cloud storage up to 1TB, maintenance & scheduled backups</div></div>
+          <div class="concierge-item"><div class="c-dot"></div><div>Digital custodian services — routine data health monitoring & on-demand media retrieval</div></div>
+          <div class="concierge-item"><div class="c-dot"></div><div>Priority concierge access</div></div>
+          <div class="concierge-pricing">
+            <div><div class="price-val">$500 / mo</div><div class="price-label">Monthly</div></div>
+            <div><div class="price-val">$4,500 / yr</div><div class="price-label">Annual</div><div class="price-save">Save $1,500</div></div>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="split-right">
+      <img src="images/4.jpg" alt="VHS and Betamax tapes">
+      <div class="split-right-fade"></div>
+    </div>
   </div>
-</section>
+  <footer><div class="footer-logo">Lumi<span>nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
+</div>
 
 <!-- PROCESS -->
-<section id="process" class="section fade-in">
-  <div class="section-label">Process</div>
+<div id="page-process" class="page">
+  <div class="split-page">
+    <div class="split-left">
+      <div class="sec-label">Process</div>
 
-  <div class="process-step">
-    <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-    <div class="step-content"><div class="step-title">In-person consultation & initial media inventory</div></div>
-  </div>
-  <div class="process-step">
-    <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-    <div class="step-content"><div class="step-title">Custom quote</div></div>
-  </div>
-  <div class="process-step">
-    <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-    <div class="step-content"><div class="step-title">Media transported to Luminae Studio</div></div>
-  </div>
-  <div class="process-step">
-    <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-    <div class="step-content"><div class="step-title">Digitized, restored & catalogued</div></div>
-  </div>
-  <div class="process-step">
-    <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-    <div class="step-content"><div class="step-title">Personal delivery of originals and complete digital archive</div></div>
-  </div>
-  <div class="process-step">
-    <div class="step-line"><div class="step-dot dim"></div></div>
-    <div class="step-content">
-      <div class="step-title">Concierge onboarding</div>
-      <div class="step-note">Opt-in required</div>
+      <div class="process-step">
+        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+        <div class="step-content"><div class="step-title">In-person consultation & initial media inventory</div></div>
+      </div>
+      <div class="process-step">
+        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+        <div class="step-content"><div class="step-title">Custom quote</div></div>
+      </div>
+      <div class="process-step">
+        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+        <div class="step-content"><div class="step-title">Media transported to Luminae Studio</div></div>
+      </div>
+      <div class="process-step">
+        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+        <div class="step-content"><div class="step-title">Digitized, restored & catalogued</div></div>
+      </div>
+      <div class="process-step">
+        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+        <div class="step-content"><div class="step-title">Personal delivery of originals and complete digital archive</div></div>
+      </div>
+      <div class="process-step">
+        <div class="step-line"><div class="step-dot dim"></div></div>
+        <div class="step-content">
+          <div class="step-title">Concierge onboarding</div>
+          <div class="step-note">Opt-in required</div>
+        </div>
+      </div>
+    </div>
+    <div class="split-right">
+      <img src="images/6.jpg" alt="White glove handling of archive">
+      <div class="split-right-fade"></div>
     </div>
   </div>
-</section>
+  <footer><div class="footer-logo">Lumi<span>nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
+</div>
 
 <!-- ABOUT -->
-<section id="about" class="section fade-in">
-  <div class="section-label">About</div>
-  <img src="images/6.jpg" alt="White glove handling of archive" class="about-img">
-  <div class="about-body">
-    <div class="about-para lead">Luminae was built on a simple truth. Physical media doesn't last forever, but your legacy should.</div>
-    <div class="about-para">Photos fade. Film degrades. Hard drives fail. Camera cards corrupt. And with them, the moments that matter most can disappear forever.</div>
-    <div class="about-para">With 25 years of experience in television, digital media and high-end client tech services, we understand what it means to handle irreplaceable things with care. Our clients expect nothing less than the best.</div>
-    <div class="about-para closing">No middlemen. No shortcuts. Just a trusted team dedicated to preserving your story.</div>
+<div id="page-about" class="page">
+  <div class="split-page">
+    <div class="split-left">
+      <div class="sec-label">About</div>
+      <div class="about-para lead">Luminae was built on a simple truth. Physical media doesn't last forever, but your legacy should.</div>
+      <div class="about-para">Photos fade. Film degrades. Hard drives fail. Camera cards corrupt. And with them, the moments that matter most can disappear forever.</div>
+      <div class="about-para">With 25 years of experience in television, digital media and high-end client tech services, we understand what it means to handle irreplaceable things with care. Our clients expect nothing less than the best.</div>
+      <div class="about-para closing">No middlemen. No shortcuts. Just a trusted team dedicated to preserving your story.</div>
+    </div>
+    <div class="split-right">
+      <img src="images/5.jpg" alt="Audio cassettes and reels">
+      <div class="split-right-fade"></div>
+    </div>
   </div>
-</section>
+  <footer><div class="footer-logo">Lumi<span>nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
+</div>
 
 <!-- BEGIN -->
-<section id="begin" class="section fade-in">
-  <div class="section-label">Begin</div>
-  <div class="begin-intro">Choose the option that feels right. One is all you need.</div>
+<div id="page-begin" class="page">
+  <div class="split-page">
+    <div class="split-left">
+      <div class="sec-label">Begin</div>
+      <div class="begin-intro">Choose the option that feels right. One is all you need.</div>
 
-  <div class="begin-option" onclick="toggleGate('gate-schedule')">
-    <div>
-      <div class="begin-option-label">Book a consultation</div>
-      <div class="begin-option-sub">Schedule a call at your convenience</div>
+      <div class="begin-option" onclick="toggleGate('gate-schedule')">
+        <div>
+          <div class="begin-option-label">Book a consultation</div>
+          <div class="begin-option-sub">Schedule a call at your convenience</div>
+        </div>
+        <div class="begin-action">Schedule →</div>
+      </div>
+      <div class="gate" id="gate-schedule">
+        <div class="gate-title">A few details first</div>
+        <div class="field"><label>Full name</label><input type="text" placeholder="Your name" id="s-name"></div>
+        <div class="field"><label>Title / role</label><input type="text" placeholder="e.g. Estate Manager, Personal Assistant" id="s-title"></div>
+        <div class="field"><label>Email</label><input type="email" placeholder="your@email.com" id="s-email"></div>
+        <div class="field"><label>Mobile</label><input type="tel" placeholder="+1 (000) 000-0000" id="s-phone"></div>
+        <button class="gate-btn" onclick="openSchedule()">Continue to scheduling →</button>
+      </div>
+
+      <div class="begin-option" onclick="toggleGate('gate-text')">
+        <div>
+          <div class="begin-option-label">Send us a message</div>
+          <div class="begin-option-sub">Opens a pre-filled text directly to our team</div>
+        </div>
+        <div class="begin-action">Text us →</div>
+      </div>
+      <div class="gate" id="gate-text">
+        <div class="gate-title">A few details first</div>
+        <div class="field"><label>Full name</label><input type="text" placeholder="Your name" id="t-name"></div>
+        <div class="field"><label>Title / role</label><input type="text" placeholder="e.g. Estate Manager, Personal Assistant" id="t-title"></div>
+        <div class="field"><label>Email</label><input type="email" placeholder="your@email.com" id="t-email"></div>
+        <div class="field"><label>Mobile</label><input type="tel" placeholder="+1 (000) 000-0000" id="t-phone"></div>
+        <button class="gate-btn" onclick="openText()">Continue to message →</button>
+      </div>
+
+      <div class="begin-option" onclick="toggleGate('gate-form')">
+        <div>
+          <div class="begin-option-label">Tell us about your collection</div>
+          <div class="begin-option-sub">A brief form to help us understand your needs</div>
+        </div>
+        <div class="begin-action">Begin →</div>
+      </div>
+      <div class="gate" id="gate-form">
+        <div class="gate-title">A few details first</div>
+        <div class="field"><label>Full name</label><input type="text" placeholder="Your name" id="f-name"></div>
+        <div class="field"><label>Title / role</label><input type="text" placeholder="e.g. Estate Manager, Personal Assistant" id="f-title"></div>
+        <div class="field"><label>Email</label><input type="email" placeholder="your@email.com" id="f-email"></div>
+        <div class="field"><label>Mobile</label><input type="tel" placeholder="+1 (000) 000-0000" id="f-phone"></div>
+        <div class="field"><label>Tell us about your collection</label><input type="text" placeholder="Rough idea of formats and volume" id="f-collection"></div>
+        <button class="gate-btn" onclick="submitForm()">Submit →</button>
+      </div>
     </div>
-    <div class="begin-action">Schedule →</div>
-  </div>
-  <div class="gate" id="gate-schedule">
-    <div class="gate-title">A few details first</div>
-    <div class="field"><label>Full name</label><input type="text" placeholder="Your name" id="s-name"></div>
-    <div class="field"><label>Title / role</label><input type="text" placeholder="e.g. Estate Manager, Personal Assistant" id="s-title"></div>
-    <div class="field"><label>Email</label><input type="email" placeholder="your@email.com" id="s-email"></div>
-    <div class="field"><label>Mobile</label><input type="tel" placeholder="+1 (000) 000-0000" id="s-phone"></div>
-    <button class="gate-btn" onclick="openSchedule()">Continue to scheduling →</button>
-  </div>
-
-  <div class="begin-option" onclick="toggleGate('gate-text')">
-    <div>
-      <div class="begin-option-label">Send us a message</div>
-      <div class="begin-option-sub">Opens a pre-filled text directly to our team</div>
+    <div class="split-right">
+      <img src="images/2.jpg" alt="Film reel">
+      <div class="split-right-fade"></div>
     </div>
-    <div class="begin-action">Text us →</div>
   </div>
-  <div class="gate" id="gate-text">
-    <div class="gate-title">A few details first</div>
-    <div class="field"><label>Full name</label><input type="text" placeholder="Your name" id="t-name"></div>
-    <div class="field"><label>Title / role</label><input type="text" placeholder="e.g. Estate Manager, Personal Assistant" id="t-title"></div>
-    <div class="field"><label>Email</label><input type="email" placeholder="your@email.com" id="t-email"></div>
-    <div class="field"><label>Mobile</label><input type="tel" placeholder="+1 (000) 000-0000" id="t-phone"></div>
-    <button class="gate-btn" onclick="openText()">Continue to message →</button>
-  </div>
-
-  <div class="begin-option" onclick="toggleGate('gate-form')">
-    <div>
-      <div class="begin-option-label">Tell us about your collection</div>
-      <div class="begin-option-sub">A brief form to help us understand your needs</div>
-    </div>
-    <div class="begin-action">Begin →</div>
-  </div>
-  <div class="gate" id="gate-form">
-    <div class="gate-title">A few details first</div>
-    <div class="field"><label>Full name</label><input type="text" placeholder="Your name" id="f-name"></div>
-    <div class="field"><label>Title / role</label><input type="text" placeholder="e.g. Estate Manager, Personal Assistant" id="f-title"></div>
-    <div class="field"><label>Email</label><input type="email" placeholder="your@email.com" id="f-email"></div>
-    <div class="field"><label>Mobile</label><input type="tel" placeholder="+1 (000) 000-0000" id="f-phone"></div>
-    <div class="field"><label>Tell us about your collection</label><input type="text" placeholder="Rough idea of formats and volume" id="f-collection"></div>
-    <button class="gate-btn" onclick="submitForm()">Submit →</button>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-logo">Lumi<span>nae</span></div>
-  <div class="footer-copy">© 2025 Luminae. All rights reserved.</div>
-</footer>
+  <footer><div class="footer-logo">Lumi<span>nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
+</div>
 
 <script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); });
+    document.getElementById('page-' + name).classList.add('active');
+    var navEl = document.getElementById('nav-' + name);
+    if (navEl) navEl.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
   function toggleGate(id) {
     document.querySelectorAll('.gate').forEach(function(g) { if (g.id !== id) g.classList.remove('open'); });
     document.getElementById(id).classList.toggle('open');
@@ -692,12 +628,6 @@
     var name = document.getElementById('f-name').value;
     alert('Thank you' + (name ? ', ' + name : '') + '. We will be in touch shortly.');
   }
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.08 });
-
-  document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
 </script>
 </body>
 </html>
