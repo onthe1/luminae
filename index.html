@@ -61,18 +61,23 @@
 
   .nav-links a {
     font-size: 16px;
-    color: var(--text-secondary);
+    color: var(--gold);
     text-decoration: none;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    transition: color 0.3s;
+    transition: color 0.5s ease;
     cursor: pointer;
   }
 
   .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
 
   .page { display: none; min-height: 100vh; padding-top: 72px; }
-  .page.active { display: flex; flex-direction: column; }
+  .page.active { display: flex; flex-direction: column; animation: pageFadeIn 0.6s ease forwards; }
+
+  @keyframes pageFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 
   #page-home {
     position: relative;
@@ -205,7 +210,7 @@
   .step-note { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 
   .about-para { font-size: 18px; font-weight: 300; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px; }
-  .about-para.lead { font-size: 20px; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.4; margin-bottom: 32px; }
+  .about-para.lead { font-size: 20px; color: var(--text-primary); letter-spacing: 0.04em; line-height: 1.5; margin-bottom: 32px; text-align: left; }
   .about-para.closing { font-size: 17px; color: var(--text-dim); font-style: italic; }
 
   .begin-intro { font-size: 17px; color: var(--text-dim); line-height: 1.7; margin-bottom: 36px; }
@@ -343,7 +348,7 @@
   <div class="split-page">
     <div class="split-left">
       <div class="sec-label">About</div>
-      <div class="about-para lead">Physical media doesn't last forever, your legacy should.</div>
+      <div class="about-para lead">Physical media doesn't last forever,<br>your legacy should.</div>
       <div class="about-para">Photos fade. Film degrades. Hard drives fail. Camera cards corrupt. And with them, the moments that matter most can disappear forever.</div>
       <div class="about-para">With 25 years of experience in television, digital media and high-end client tech services, we understand what it means to handle irreplaceable things with care. Our clients expect nothing less than the best.</div>
       <div class="about-para closing">No middlemen. No shortcuts. Just a trusted team dedicated to preserving your story.</div>
@@ -360,9 +365,6 @@
 <div id="page-begin" class="page">
   <div class="split-page">
     <div class="split-left">
-      <div class="sec-label">Begin</div>
-      <div class="begin-intro">Choose the option that feels right. One is all you need.</div>
-
       <div class="begin-option" onclick="toggleGate('gate-schedule')">
         <div><div class="begin-option-label">Book a consultation</div><div class="begin-option-sub">Schedule a call at your convenience</div></div>
         <div class="begin-action">Schedule →</div>
