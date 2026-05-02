@@ -231,9 +231,9 @@
 
   .gate { display: none; background: rgba(18,16,12,0.95); border: 0.5px solid var(--border); border-radius: 3px; padding: 22px 24px; margin-bottom: 2px; }
   .gate.open { display: block; }
-  .gate-title { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+  .gate-title { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
   .field { margin-bottom: 14px; }
-  .field label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 6px; }
+  .field label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 6px; }
   .field input { width: 100%; background: transparent; border: none; border-bottom: 0.5px solid #3a3428; padding: 8px 0; font-size: 16px; color: var(--text-secondary); font-family: 'Jost', sans-serif; font-weight: 300; outline: none; transition: border-color 0.2s; -webkit-appearance: none; border-radius: 0; }
   .field input::placeholder { color: #3a3428; }
   .field input:focus { border-bottom-color: var(--gold); }
@@ -386,6 +386,8 @@
           <div class="field"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required></div>
           <div class="field"><label>Mobile</label><input type="tel" name="phone" placeholder="+1 (000) 000-0000"></div>
           <div class="field"><label>Tell us about your collection</label><input type="text" name="collection" placeholder="Rough idea of formats and volume"></div>
+          <div class="field"><label>Preferred date</label><input type="date" name="preferred_date" style="color-scheme:dark;"></div>
+          <div class="field"><label>Preferred time</label><input type="time" name="preferred_time" style="color-scheme:dark;"></div>
           <div style="margin-top:24px;display:flex;align-items:center;gap:20px;">
             <button type="submit" class="gate-btn" style="border-bottom:0.5px solid #b89a6a;padding-bottom:1px;">Submit →</button>
             <span id="form-success" style="display:none;font-size:12px;color:#b89a6a;letter-spacing:0.08em;">Thank you. We will be in touch shortly.</span>
