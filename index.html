@@ -160,7 +160,13 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-    opacity: 0.5;
+    opacity: 0;
+    animation: imgFadeIn 3.6s ease forwards 0.2s;
+  }
+
+  @keyframes imgFadeIn {
+    from { opacity: 0; }
+    to { opacity: 0.5; }
   }
 
   .split-right-fade {
@@ -367,30 +373,14 @@
   <div class="split-page">
     <div class="split-left">
       <div class="sec-label">Begin Here</div>
-      <div class="begin-option" onclick="toggleGate('gate-schedule')">
+      <div class="begin-option" onclick="openSchedule()">
         <div><div class="begin-option-label">Book a consultation</div><div class="begin-option-sub">Schedule a call at your convenience</div></div>
         <div class="begin-action">Schedule →</div>
       </div>
-      <div class="gate" id="gate-schedule">
-        <div class="gate-title">A few details first</div>
-        <div class="field"><label>Full name</label><input type="text" placeholder="Your name" id="s-name"></div>
-        <div class="field"><label>Title / role</label><input type="text" placeholder="e.g. Estate Manager, Personal Assistant" id="s-title"></div>
-        <div class="field"><label>Email</label><input type="email" placeholder="your@email.com" id="s-email"></div>
-        <div class="field"><label>Mobile</label><input type="tel" placeholder="+1 (000) 000-0000" id="s-phone"></div>
-        <button class="gate-btn" onclick="openSchedule()">Continue to scheduling →</button>
-      </div>
 
-      <div class="begin-option" onclick="toggleGate('gate-text')">
-        <div><div class="begin-option-label">Send us a message</div><div class="begin-option-sub">Opens a pre-filled text directly to our team</div></div>
+      <div class="begin-option" onclick="openText()">
+        <div><div class="begin-option-label">Send us a message</div><div class="begin-option-sub">Open a pre-filled text directly to our team</div></div>
         <div class="begin-action">Text us →</div>
-      </div>
-      <div class="gate" id="gate-text">
-        <div class="gate-title">A few details first</div>
-        <div class="field"><label>Full name</label><input type="text" placeholder="Your name" id="t-name"></div>
-        <div class="field"><label>Title / role</label><input type="text" placeholder="e.g. Estate Manager, Personal Assistant" id="t-title"></div>
-        <div class="field"><label>Email</label><input type="email" placeholder="your@email.com" id="t-email"></div>
-        <div class="field"><label>Mobile</label><input type="tel" placeholder="+1 (000) 000-0000" id="t-phone"></div>
-        <button class="gate-btn" onclick="openText()">Continue to message →</button>
       </div>
 
     </div>
@@ -407,7 +397,7 @@
     gsap.set(['#line1', '#line2'], { opacity: 0 });
     gsap.timeline({ delay: 0 })
       .to('#line1', { opacity: 1, duration: 2.4, ease: 'power1.inOut' })
-      .to('#line2', { opacity: 1, duration: 3.5, ease: 'power1.inOut' }, '+=0.0');
+      .to('#line2', { opacity: 1, duration: 3.5, ease: 'power1.inOut' }, 2.0);
   }
 
   function showPage(name) {
@@ -428,8 +418,7 @@
   function openSchedule() { window.open('https://calendly.com', '_blank'); }
 
   function openText() {
-    var name = document.getElementById('t-name').value || '';
-    var body = 'Hi Luminae' + (name ? ', my name is ' + name + '.' : '.') + ' I would like to learn more about your services.';
+    var body = 'Hi Luminae, I would like to learn more about your services.';
     window.location.href = 'sms:+13232446781?body=' + encodeURIComponent(body);
   }
 
