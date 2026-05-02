@@ -54,9 +54,10 @@
     color: var(--text-primary);
     text-decoration: none;
     cursor: pointer;
+    white-space: nowrap;
   }
 
-  .logo span { color: var(--gold); }
+  .logo span, .logo .tan { color: var(--gold); }
   .nav-links { display: flex; gap: 32px; list-style: none; }
 
   .nav-links a {
@@ -72,7 +73,7 @@
   .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
 
   .page { display: none; min-height: 100vh; padding-top: 72px; }
-  .page.active { display: flex; flex-direction: column; animation: pageFadeIn 0.6s ease forwards; }
+  .page.active { display: flex; flex-direction: column; animation: pageFadeIn 1.2s ease forwards; }
 
   @keyframes pageFadeIn {
     from { opacity: 0; }
@@ -239,9 +240,9 @@
 
   @media (max-width: 768px) {
     nav { padding: 14px 20px; }
-    .logo { font-size: 13px; letter-spacing: 0.16em; }
-    .nav-links { gap: 12px; }
-    .nav-links a { font-size: 11px; letter-spacing: 0.06em; }
+    .logo { font-size: 10px; letter-spacing: 0.12em; }
+    .nav-links { gap: 10px; }
+    .nav-links a { font-size: 10px; letter-spacing: 0.05em; }
     .home-line1, .home-line2 { font-size: 24px; letter-spacing: 0.14em; }
     .split-page { flex-direction: column; }
     .split-left { width: 100%; padding: 36px 24px; }
@@ -262,7 +263,7 @@
 <body>
 
 <nav>
-  <a class="logo" onclick="showPage('home')">Lumi<span>nae</span></a>
+  <a class="logo" onclick="showPage('home')">Lumi<span class="tan">nae</span></a>
   <ul class="nav-links">
     <li><a onclick="showPage('services')" id="nav-services">Services</a></li>
     <li><a onclick="showPage('process')" id="nav-process">Process</a></li>
@@ -320,7 +321,7 @@
       <div class="split-right-fade"></div>
     </div>
   </div>
-  <footer><div class="footer-logo">Lumi<span>nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
+  <footer><div class="footer-logo">Lumi<span class="tan">nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
 </div>
 
 <!-- PROCESS -->
@@ -340,7 +341,7 @@
       <div class="split-right-fade"></div>
     </div>
   </div>
-  <footer><div class="footer-logo">Lumi<span>nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
+  <footer><div class="footer-logo">Lumi<span class="tan">nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
 </div>
 
 <!-- ABOUT -->
@@ -358,7 +359,7 @@
       <div class="split-right-fade"></div>
     </div>
   </div>
-  <footer><div class="footer-logo">Lumi<span>nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
+  <footer><div class="footer-logo">Lumi<span class="tan">nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
 </div>
 
 <!-- BEGIN -->
@@ -391,34 +392,21 @@
         <button class="gate-btn" onclick="openText()">Continue to message →</button>
       </div>
 
-      <div class="begin-option" onclick="toggleGate('gate-form')">
-        <div><div class="begin-option-label">Tell us about your collection</div><div class="begin-option-sub">A brief form to help us understand your needs</div></div>
-        <div class="begin-action">Begin →</div>
-      </div>
-      <div class="gate" id="gate-form">
-        <div class="gate-title">A few details first</div>
-        <div class="field"><label>Full name</label><input type="text" placeholder="Your name" id="f-name"></div>
-        <div class="field"><label>Title / role</label><input type="text" placeholder="e.g. Estate Manager, Personal Assistant" id="f-title"></div>
-        <div class="field"><label>Email</label><input type="email" placeholder="your@email.com" id="f-email"></div>
-        <div class="field"><label>Mobile</label><input type="tel" placeholder="+1 (000) 000-0000" id="f-phone"></div>
-        <div class="field"><label>Tell us about your collection</label><input type="text" placeholder="Rough idea of formats and volume" id="f-collection"></div>
-        <button class="gate-btn" onclick="submitForm()">Submit →</button>
-      </div>
     </div>
     <div class="split-right">
       <img class="split-right-img" src="images/2.jpg" alt="Film reel">
       <div class="split-right-fade"></div>
     </div>
   </div>
-  <footer><div class="footer-logo">Lumi<span>nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
+  <footer><div class="footer-logo">Lumi<span class="tan">nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
 </div>
 
 <script>
   function runHomeAnimation() {
     gsap.set(['#line1', '#line2'], { opacity: 0 });
-    gsap.timeline({ delay: 0.5 })
+    gsap.timeline({ delay: 0 })
       .to('#line1', { opacity: 1, duration: 2.4, ease: 'power1.inOut' })
-      .to('#line2', { opacity: 1, duration: 1.4, ease: 'power1.inOut' }, '+=0.12');
+      .to('#line2', { opacity: 1, duration: 3.5, ease: 'power1.inOut' }, '+=0.0');
   }
 
   function showPage(name) {
