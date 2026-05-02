@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Luminae — Your Memories, Curated.</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&display=swap');
 
@@ -74,19 +75,15 @@
   .nav-links a.active { color: var(--text-secondary); }
 
   /* PAGES */
-  .page {
-    display: none;
-    min-height: 100vh;
-    padding-top: 66px;
-  }
-
+  .page { display: none; min-height: 100vh; padding-top: 66px; }
   .page.active { display: flex; flex-direction: column; }
 
-  /* HOME PAGE */
+  /* HOME */
   #page-home {
     position: relative;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
   }
 
   .home-bg {
@@ -95,52 +92,150 @@
     background-image: url('images/1.jpg');
     background-size: cover;
     background-position: center;
-    opacity: 0.45;
+    opacity: 0.2;
     z-index: 0;
   }
 
   .home-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at center, rgba(14,13,11,0.3) 0%, rgba(14,13,11,0.85) 100%);
+    background: radial-gradient(ellipse at center, rgba(14,13,11,0.4) 0%, rgba(14,13,11,0.92) 100%);
     z-index: 1;
   }
 
   .home-content {
     position: relative;
     z-index: 2;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
     padding: 48px;
+    width: 100%;
+    max-width: 1100px;
   }
 
+  /* TEXT SIDE */
+  .home-text { display: flex; flex-direction: column; align-items: flex-start; }
+
   .home-line1 {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 200;
-    letter-spacing: 0.28em;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
     color: var(--text-primary);
     display: block;
     opacity: 0;
-    animation: fadeUp 1.4s ease forwards 0.3s;
   }
 
   .home-line2 {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 200;
-    letter-spacing: 0.28em;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
     color: var(--gold);
     display: block;
     opacity: 0;
-    animation: fadeUp 1.4s ease forwards 2s;
+    margin-top: 6px;
   }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  /* PHOTO SIDE */
+  .home-photo-wrap {
+    position: relative;
+    width: 280px;
+    height: 360px;
+    flex-shrink: 0;
+    opacity: 0;
   }
 
-  /* SPLIT LAYOUT PAGES */
+  .home-photo-wrap img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+
+  #photo-before { opacity: 1; z-index: 1; }
+  #photo-after { opacity: 0; z-index: 2; }
+
+  /* LAMP */
+  .lamp-wrap {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    cursor: pointer;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .lamp-cord {
+    width: 1px;
+    height: 40px;
+    background: #3a3428;
+  }
+
+  .lamp-head {
+    width: 48px;
+    height: 28px;
+    background: #2a2418;
+    border-radius: 0 0 24px 24px;
+    border: 0.5px solid #3a3428;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 4px;
+    position: relative;
+  }
+
+  .lamp-bulb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #3a3428;
+    transition: background 0.1s;
+  }
+
+  .lamp-head.on .lamp-bulb { background: #f5d98a; }
+
+  .lamp-glow {
+    position: absolute;
+    bottom: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 80px;
+    background: radial-gradient(ellipse, rgba(245,217,138,0.18) 0%, rgba(245,217,138,0) 70%);
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .lamp-hint {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #3a3428;
+    margin-top: 8px;
+    opacity: 0;
+  }
+
+  /* LIGHT BURST */
+  .light-burst {
+    position: absolute;
+    inset: -40px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(245,217,138,0.35) 0%, rgba(245,217,138,0) 60%);
+    z-index: 3;
+    opacity: 0;
+    pointer-events: none;
+    border-radius: 2px;
+  }
+
+  /* SPLIT LAYOUT */
   .split-page {
     flex: 1;
     display: flex;
@@ -180,7 +275,6 @@
     z-index: 1;
   }
 
-  /* SECTION LABELS & TEXT */
   .sec-label {
     font-size: 9px;
     letter-spacing: 0.22em;
@@ -191,77 +285,17 @@
 
   /* SERVICES */
   .service-block { margin-bottom: 36px; }
-
-  .service-title {
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--text-secondary);
-    letter-spacing: 0.04em;
-    margin-bottom: 4px;
-  }
-
-  .service-desc {
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 14px;
-  }
-
-  .service-item {
-    font-size: 14px;
-    color: var(--text-dim);
-    padding: 9px 0;
-    border-bottom: 0.5px solid var(--border-dim);
-    letter-spacing: 0.02em;
-  }
-
+  .service-title { font-size: 16px; font-weight: 400; color: var(--text-secondary); letter-spacing: 0.04em; margin-bottom: 4px; }
+  .service-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
+  .service-item { font-size: 14px; color: var(--text-dim); padding: 9px 0; border-bottom: 0.5px solid var(--border-dim); letter-spacing: 0.02em; }
   .service-item:first-of-type { border-top: 0.5px solid var(--border-dim); }
+  .service-divider { height: 0.5px; background: var(--border); margin: 32px 0; }
 
-  .service-divider {
-    height: 0.5px;
-    background: var(--border);
-    margin: 32px 0;
-  }
-
-  .concierge-box {
-    background: rgba(18,16,12,0.8);
-    border: 0.5px solid var(--border);
-    border-radius: 3px;
-    padding: 20px 22px;
-    margin-top: 14px;
-  }
-
-  .concierge-item {
-    font-size: 13px;
-    color: var(--text-dim);
-    padding: 8px 0;
-    border-bottom: 0.5px solid var(--border-dim);
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    line-height: 1.55;
-  }
-
+  .concierge-box { background: rgba(18,16,12,0.8); border: 0.5px solid var(--border); border-radius: 3px; padding: 20px 22px; margin-top: 14px; }
+  .concierge-item { font-size: 13px; color: var(--text-dim); padding: 8px 0; border-bottom: 0.5px solid var(--border-dim); display: flex; gap: 10px; align-items: flex-start; line-height: 1.55; }
   .concierge-item:last-of-type { border-bottom: none; }
-
-  .c-dot {
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: var(--gold);
-    opacity: 0.3;
-    margin-top: 7px;
-    flex-shrink: 0;
-  }
-
-  .concierge-pricing {
-    display: flex;
-    gap: 28px;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 0.5px solid var(--border-dim);
-  }
-
+  .c-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold); opacity: 0.3; margin-top: 7px; flex-shrink: 0; }
+  .concierge-pricing { display: flex; gap: 28px; margin-top: 16px; padding-top: 16px; border-top: 0.5px solid var(--border-dim); }
   .price-val { font-size: 12px; color: var(--text-muted); }
   .price-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #2a2820; margin-top: 2px; }
   .price-save { font-size: 9px; color: #2a2820; margin-top: 1px; }
@@ -277,115 +311,32 @@
   .step-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
 
   /* ABOUT */
-  .about-para {
-    font-size: 16px;
-    font-weight: 300;
-    color: var(--text-secondary);
-    line-height: 1.85;
-    margin-bottom: 24px;
-  }
-
+  .about-para { font-size: 16px; font-weight: 300; color: var(--text-secondary); line-height: 1.85; margin-bottom: 24px; }
   .about-para.lead { font-size: 18px; color: var(--text-primary); }
   .about-para.closing { font-size: 15px; color: var(--text-dim); font-style: italic; }
 
   /* BEGIN */
   .begin-intro { font-size: 15px; color: var(--text-dim); line-height: 1.7; margin-bottom: 40px; }
-
-  .begin-option {
-    padding: 20px 0;
-    border-top: 0.5px solid var(--border-dim);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    transition: opacity 0.2s;
-    gap: 16px;
-  }
-
+  .begin-option { padding: 20px 0; border-top: 0.5px solid var(--border-dim); display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: opacity 0.2s; gap: 16px; }
   .begin-option:last-of-type { border-bottom: 0.5px solid var(--border-dim); }
   .begin-option:hover { opacity: 0.7; }
-
   .begin-option-label { font-size: 16px; font-weight: 300; color: var(--text-secondary); }
   .begin-option-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
-
-  .begin-action {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    border-bottom: 0.5px solid var(--text-muted);
-    padding-bottom: 1px;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: color 0.2s, border-color 0.2s;
-  }
-
+  .begin-action { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); border-bottom: 0.5px solid var(--text-muted); padding-bottom: 1px; white-space: nowrap; flex-shrink: 0; transition: color 0.2s, border-color 0.2s; }
   .begin-option:hover .begin-action { color: var(--gold); border-color: var(--gold); }
 
-  .gate {
-    display: none;
-    background: rgba(18,16,12,0.95);
-    border: 0.5px solid var(--border);
-    border-radius: 3px;
-    padding: 22px 24px;
-    margin-bottom: 2px;
-  }
-
+  .gate { display: none; background: rgba(18,16,12,0.95); border: 0.5px solid var(--border); border-radius: 3px; padding: 22px 24px; margin-bottom: 2px; }
   .gate.open { display: block; }
   .gate-title { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
   .field { margin-bottom: 14px; }
-
-  .field label {
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    display: block;
-    margin-bottom: 6px;
-  }
-
-  .field input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 0.5px solid #2a2820;
-    padding: 8px 0;
-    font-size: 15px;
-    color: var(--text-secondary);
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    outline: none;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-    border-radius: 0;
-  }
-
+  .field label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 6px; }
+  .field input { width: 100%; background: transparent; border: none; border-bottom: 0.5px solid #2a2820; padding: 8px 0; font-size: 15px; color: var(--text-secondary); font-family: 'Jost', sans-serif; font-weight: 300; outline: none; transition: border-color 0.2s; -webkit-appearance: none; border-radius: 0; }
   .field input::placeholder { color: #2a2820; }
   .field input:focus { border-bottom-color: var(--gold); }
-
-  .gate-btn {
-    margin-top: 22px;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-    border: none;
-    border-bottom: 0.5px solid var(--gold);
-    padding-bottom: 1px;
-    cursor: pointer;
-    background: none;
-    font-family: 'Jost', sans-serif;
-  }
+  .gate-btn { margin-top: 22px; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); border: none; border-bottom: 0.5px solid var(--gold); padding-bottom: 1px; cursor: pointer; background: none; font-family: 'Jost', sans-serif; }
 
   /* FOOTER */
-  footer {
-    border-top: 0.5px solid var(--border);
-    padding: 22px 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
+  footer { border-top: 0.5px solid var(--border); padding: 22px 48px; display: flex; justify-content: space-between; align-items: center; }
   .footer-logo { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
   .footer-logo span { color: var(--gold-dim); }
   .footer-copy { font-size: 10px; color: var(--text-muted); letter-spacing: 0.06em; }
@@ -394,8 +345,11 @@
   @media (max-width: 768px) {
     nav { padding: 18px 24px; }
     .nav-links { gap: 16px; }
-    .nav-links a { font-size: 10px; letter-spacing: 0.08em; }
-    .home-line1, .home-line2 { font-size: 18px; letter-spacing: 0.2em; }
+    .nav-links a { font-size: 10px; }
+    .home-content { flex-direction: column; gap: 40px; padding: 32px 24px; }
+    .home-text { align-items: center; text-align: center; }
+    .home-line1, .home-line2 { font-size: 17px; letter-spacing: 0.2em; }
+    .home-photo-wrap { width: 220px; height: 280px; }
     .split-page { flex-direction: column; }
     .split-left { width: 100%; padding: 40px 24px; }
     .split-right { width: 100%; height: 240px; }
@@ -421,8 +375,23 @@
   <div class="home-bg"></div>
   <div class="home-overlay"></div>
   <div class="home-content">
-    <span class="home-line1">Your memories,</span>
-    <span class="home-line2">curated.</span>
+    <div class="home-text">
+      <span class="home-line1" id="line1">Your memories,</span>
+      <span class="home-line2" id="line2">curated.</span>
+    </div>
+    <div class="home-photo-wrap" id="photoWrap">
+      <div class="lamp-wrap" id="lampWrap">
+        <div class="lamp-cord"></div>
+        <div class="lamp-head" id="lampHead">
+          <div class="lamp-bulb"></div>
+        </div>
+        <div class="lamp-glow" id="lampGlow"></div>
+      </div>
+      <span class="lamp-hint" id="lampHint">Click the lamp</span>
+      <div class="light-burst" id="lightBurst"></div>
+      <img id="photo-before" src="images/Before.png" alt="Before restoration">
+      <img id="photo-after" src="images/After.png" alt="After restoration">
+    </div>
   </div>
 </div>
 
@@ -431,7 +400,6 @@
   <div class="split-page">
     <div class="split-left">
       <div class="sec-label">Services</div>
-
       <div class="service-block">
         <div class="service-title">Core Services</div>
         <div class="service-desc">All media formats, fully digitized, organized and cataloged.</div>
@@ -440,9 +408,7 @@
         <div class="service-item">Custom inventory design & cataloging</div>
         <div class="service-item">Data extraction from all digital storage formats</div>
       </div>
-
       <div class="service-divider"></div>
-
       <div class="service-block">
         <div class="service-title">Premium Services</div>
         <div class="service-desc">Extend and elevate your archive with expert restoration and enhancement.</div>
@@ -452,9 +418,7 @@
         <div class="service-item">Audio / video editing</div>
         <div class="service-item">Personal digital organization</div>
       </div>
-
       <div class="service-divider"></div>
-
       <div class="service-block">
         <div class="service-title">Luminae Concierge</div>
         <div class="service-desc">Your archive, maintained. Your memories, always within reach.</div>
@@ -482,37 +446,15 @@
   <div class="split-page">
     <div class="split-left">
       <div class="sec-label">Process</div>
-
-      <div class="process-step">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-content"><div class="step-title">In-person consultation & initial media inventory</div></div>
-      </div>
-      <div class="process-step">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-content"><div class="step-title">Custom quote</div></div>
-      </div>
-      <div class="process-step">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-content"><div class="step-title">Media transported to Luminae Studio</div></div>
-      </div>
-      <div class="process-step">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-content"><div class="step-title">Digitized, restored & catalogued</div></div>
-      </div>
-      <div class="process-step">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-content"><div class="step-title">Personal delivery of originals and complete digital archive</div></div>
-      </div>
-      <div class="process-step">
-        <div class="step-line"><div class="step-dot dim"></div></div>
-        <div class="step-content">
-          <div class="step-title">Concierge onboarding</div>
-          <div class="step-note">Opt-in required</div>
-        </div>
-      </div>
+      <div class="process-step"><div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">In-person consultation & initial media inventory</div></div></div>
+      <div class="process-step"><div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">Custom quote</div></div></div>
+      <div class="process-step"><div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">Media transported to Luminae Studio</div></div></div>
+      <div class="process-step"><div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">Digitized, restored & catalogued</div></div></div>
+      <div class="process-step"><div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">Personal delivery of originals and complete digital archive</div></div></div>
+      <div class="process-step"><div class="step-line"><div class="step-dot dim"></div></div><div class="step-content"><div class="step-title">Concierge onboarding</div><div class="step-note">Opt-in required</div></div></div>
     </div>
     <div class="split-right">
-      <img src="images/6.jpg" alt="White glove handling of archive">
+      <img src="images/6.jpg" alt="White glove handling">
       <div class="split-right-fade"></div>
     </div>
   </div>
@@ -545,10 +487,7 @@
       <div class="begin-intro">Choose the option that feels right. One is all you need.</div>
 
       <div class="begin-option" onclick="toggleGate('gate-schedule')">
-        <div>
-          <div class="begin-option-label">Book a consultation</div>
-          <div class="begin-option-sub">Schedule a call at your convenience</div>
-        </div>
+        <div><div class="begin-option-label">Book a consultation</div><div class="begin-option-sub">Schedule a call at your convenience</div></div>
         <div class="begin-action">Schedule →</div>
       </div>
       <div class="gate" id="gate-schedule">
@@ -561,10 +500,7 @@
       </div>
 
       <div class="begin-option" onclick="toggleGate('gate-text')">
-        <div>
-          <div class="begin-option-label">Send us a message</div>
-          <div class="begin-option-sub">Opens a pre-filled text directly to our team</div>
-        </div>
+        <div><div class="begin-option-label">Send us a message</div><div class="begin-option-sub">Opens a pre-filled text directly to our team</div></div>
         <div class="begin-action">Text us →</div>
       </div>
       <div class="gate" id="gate-text">
@@ -577,10 +513,7 @@
       </div>
 
       <div class="begin-option" onclick="toggleGate('gate-form')">
-        <div>
-          <div class="begin-option-label">Tell us about your collection</div>
-          <div class="begin-option-sub">A brief form to help us understand your needs</div>
-        </div>
+        <div><div class="begin-option-label">Tell us about your collection</div><div class="begin-option-sub">A brief form to help us understand your needs</div></div>
         <div class="begin-action">Begin →</div>
       </div>
       <div class="gate" id="gate-form">
@@ -602,6 +535,31 @@
 </div>
 
 <script>
+  var lampClicked = false;
+
+  function runHomeAnimation() {
+    var tl = gsap.timeline();
+    tl.to('#photoWrap', { opacity: 1, duration: 1.2, ease: 'power2.out' }, 0.3)
+      .to('#line1', { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out' }, 0.6)
+      .to('#lampWrap', { opacity: 1, duration: 0.8, ease: 'power2.out' }, 1.2)
+      .to('#lampHint', { opacity: 1, duration: 0.6, ease: 'power2.out' }, 2.0);
+  }
+
+  document.getElementById('lampWrap').addEventListener('click', function() {
+    if (lampClicked) return;
+    lampClicked = true;
+
+    document.getElementById('lampHint').style.opacity = 0;
+    document.getElementById('lampHead').classList.add('on');
+
+    var tl = gsap.timeline();
+    tl.to('#lampGlow', { opacity: 1, duration: 0.15, ease: 'power4.out' })
+      .to('#lightBurst', { opacity: 1, duration: 0.15, ease: 'power4.out' }, 0)
+      .to('#lightBurst', { opacity: 0, duration: 0.6, ease: 'power2.out' }, 0.15)
+      .to('#photo-after', { opacity: 1, duration: 1.4, ease: 'power2.inOut' }, 0.2)
+      .to('#line2', { opacity: 1, duration: 1.0, ease: 'power2.out' }, 0.8);
+  });
+
   function showPage(name) {
     document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
     document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); });
@@ -609,6 +567,18 @@
     var navEl = document.getElementById('nav-' + name);
     if (navEl) navEl.classList.add('active');
     window.scrollTo(0, 0);
+    if (name === 'home') {
+      lampClicked = false;
+      gsap.set('#line1', { opacity: 0 });
+      gsap.set('#line2', { opacity: 0 });
+      gsap.set('#photoWrap', { opacity: 0 });
+      gsap.set('#lampWrap', { opacity: 0 });
+      gsap.set('#lampHint', { opacity: 0 });
+      gsap.set('#lampGlow', { opacity: 0 });
+      gsap.set('#photo-after', { opacity: 0 });
+      document.getElementById('lampHead').classList.remove('on');
+      setTimeout(runHomeAnimation, 100);
+    }
   }
 
   function toggleGate(id) {
@@ -628,6 +598,10 @@
     var name = document.getElementById('f-name').value;
     alert('Thank you' + (name ? ', ' + name : '') + '. We will be in touch shortly.');
   }
+
+  window.addEventListener('load', function() {
+    runHomeAnimation();
+  });
 </script>
 </body>
 </html>
