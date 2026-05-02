@@ -32,7 +32,6 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
   nav {
     display: flex;
     justify-content: space-between;
@@ -75,7 +74,6 @@
   .page { display: none; min-height: 100vh; padding-top: 72px; }
   .page.active { display: flex; flex-direction: column; }
 
-  /* HOME */
   #page-home {
     position: relative;
     align-items: center;
@@ -109,6 +107,7 @@
     justify-content: center;
     text-align: center;
     padding: 48px;
+    margin-top: -9vh;
   }
 
   .home-line1 {
@@ -134,12 +133,11 @@
     line-height: 1.1;
   }
 
-  /* SPLIT PAGES */
   .split-page { flex: 1; display: flex; min-height: calc(100vh - 72px); }
 
   .split-left {
     width: 52%;
-    padding: 56px 56px;
+    padding: 56px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -166,15 +164,8 @@
     z-index: 1;
   }
 
-  .sec-label {
-    font-size: 12px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 36px;
-  }
+  .sec-label { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 36px; }
 
-  /* SERVICES */
   .service-block { margin-bottom: 28px; }
 
   .service-title {
@@ -186,12 +177,7 @@
     margin-bottom: 4px;
   }
 
-  .service-desc {
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 10px;
-  }
+  .service-desc { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; }
 
   .service-item {
     font-size: 16px;
@@ -204,158 +190,11 @@
   .service-item:first-of-type { border-top: 0.5px solid var(--border-dim); }
   .service-divider { height: 0.5px; background: var(--border); margin: 24px 0; }
 
-  .concierge-box {
-    background: rgba(18,16,12,0.8);
-    border: 0.5px solid var(--border);
-    border-radius: 3px;
-    padding: 18px 20px;
-    margin-top: 10px;
-  }
-
-  .concierge-item {
-    font-size: 15px;
-    color: var(--text-secondary);
-    padding: 6px 0;
-    border-bottom: 0.5px solid var(--border-dim);
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    line-height: 1.5;
-  }
-
+  .concierge-box { background: rgba(18,16,12,0.8); border: 0.5px solid var(--border); border-radius: 3px; padding: 18px 20px; margin-top: 10px; }
+  .concierge-item { font-size: 15px; color: var(--text-secondary); padding: 6px 0; border-bottom: 0.5px solid var(--border-dim); display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
   .concierge-item:last-of-type { border-bottom: none; }
   .c-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold); opacity: 0.4; margin-top: 8px; flex-shrink: 0; }
 
-  .concierge-pricing {
-    display: flex;
-    gap: 28px;
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 0.5px solid var(--border-dim);
-  }
-
-  .price-val { font-size: 15px; color: var(--text-dim); }
-  .price-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-top: 2px; }
-  .price-save { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
-
-  /* BEFORE/AFTER SLIDER */
-  .ba-section { padding: 40px 56px; border-top: 0.5px solid var(--border); }
-
-  .ba-label-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 14px;
-  }
-
-  .ba-title {
-    font-size: 18px;
-    font-weight: 400;
-    color: var(--text-primary);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .ba-hint {
-    font-size: 12px;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .ba-container {
-    position: relative;
-    width: 100%;
-    max-width: 560px;
-    height: 360px;
-    overflow: hidden;
-    border-radius: 2px;
-    cursor: col-resize;
-    user-select: none;
-  }
-
-  .ba-after {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    z-index: 1;
-  }
-
-  .ba-before-wrap {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: 2;
-    width: 50%;
-  }
-
-  .ba-before {
-    position: absolute;
-    top: 0; left: 0;
-    width: 560px;
-    max-width: none;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-  }
-
-  .ba-handle {
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 50%;
-    width: 2px;
-    background: rgba(255,255,255,0.75);
-    z-index: 3;
-    transform: translateX(-50%);
-  }
-
-  .ba-handle-circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.92);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 1px 8px rgba(0,0,0,0.4);
-  }
-
-  .ba-arrows { font-size: 15px; color: #2a2820; letter-spacing: -2px; font-weight: 500; }
-
-  .ba-badge-before {
-    position: absolute;
-    top: 12px; left: 12px;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #e8e2d8;
-    background: rgba(14,13,11,0.7);
-    padding: 4px 10px;
-    border-radius: 1px;
-    z-index: 4;
-  }
-
-  .ba-badge-after {
-    position: absolute;
-    top: 12px; right: 12px;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #e8e2d8;
-    background: rgba(14,13,11,0.7);
-    padding: 4px 10px;
-    border-radius: 1px;
-    z-index: 4;
-  }
-
-  /* PROCESS */
   .process-step { display: flex; gap: 18px; align-items: flex-start; }
   .step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
   .step-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); opacity: 0.5; margin-top: 8px; }
@@ -365,124 +204,52 @@
   .step-title { font-size: 20px; font-weight: 300; color: var(--text-secondary); line-height: 1.4; }
   .step-note { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 
-  /* ABOUT */
   .about-para { font-size: 18px; font-weight: 300; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px; }
-  .about-para.lead { font-size: 22px; color: var(--text-primary); }
+  .about-para.lead { font-size: 20px; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.4; margin-bottom: 32px; }
   .about-para.closing { font-size: 17px; color: var(--text-dim); font-style: italic; }
 
-  /* BEGIN */
   .begin-intro { font-size: 17px; color: var(--text-dim); line-height: 1.7; margin-bottom: 36px; }
-
-  .begin-option {
-    padding: 18px 0;
-    border-top: 0.5px solid var(--border-dim);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    transition: opacity 0.2s;
-    gap: 16px;
-  }
-
+  .begin-option { padding: 18px 0; border-top: 0.5px solid var(--border-dim); display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: opacity 0.2s; gap: 16px; }
   .begin-option:last-of-type { border-bottom: 0.5px solid var(--border-dim); }
   .begin-option:hover { opacity: 0.7; }
   .begin-option-label { font-size: 20px; font-weight: 300; color: var(--text-secondary); }
   .begin-option-sub { font-size: 14px; color: var(--text-muted); margin-top: 3px; }
-
-  .begin-action {
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    border-bottom: 0.5px solid var(--text-muted);
-    padding-bottom: 1px;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: color 0.2s, border-color 0.2s;
-  }
-
+  .begin-action { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); border-bottom: 0.5px solid var(--text-muted); padding-bottom: 1px; white-space: nowrap; flex-shrink: 0; transition: color 0.2s, border-color 0.2s; }
   .begin-option:hover .begin-action { color: var(--gold); border-color: var(--gold); }
 
-  .gate {
-    display: none;
-    background: rgba(18,16,12,0.95);
-    border: 0.5px solid var(--border);
-    border-radius: 3px;
-    padding: 22px 24px;
-    margin-bottom: 2px;
-  }
-
+  .gate { display: none; background: rgba(18,16,12,0.95); border: 0.5px solid var(--border); border-radius: 3px; padding: 22px 24px; margin-bottom: 2px; }
   .gate.open { display: block; }
   .gate-title { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
   .field { margin-bottom: 14px; }
-
-  .field label {
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    display: block;
-    margin-bottom: 6px;
-  }
-
-  .field input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 0.5px solid #3a3428;
-    padding: 8px 0;
-    font-size: 16px;
-    color: var(--text-secondary);
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    outline: none;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-    border-radius: 0;
-  }
-
+  .field label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 6px; }
+  .field input { width: 100%; background: transparent; border: none; border-bottom: 0.5px solid #3a3428; padding: 8px 0; font-size: 16px; color: var(--text-secondary); font-family: 'Jost', sans-serif; font-weight: 300; outline: none; transition: border-color 0.2s; -webkit-appearance: none; border-radius: 0; }
   .field input::placeholder { color: #3a3428; }
   .field input:focus { border-bottom-color: var(--gold); }
+  .gate-btn { margin-top: 22px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); border: none; border-bottom: 0.5px solid var(--gold); padding-bottom: 1px; cursor: pointer; background: none; font-family: 'Jost', sans-serif; }
 
-  .gate-btn {
-    margin-top: 22px;
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-    border: none;
-    border-bottom: 0.5px solid var(--gold);
-    padding-bottom: 1px;
-    cursor: pointer;
-    background: none;
-    font-family: 'Jost', sans-serif;
-  }
-
-  /* FOOTER */
-  footer {
-    border-top: 0.5px solid var(--border);
-    padding: 22px 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
+  footer { border-top: 0.5px solid var(--border); padding: 22px 48px; display: flex; justify-content: space-between; align-items: center; }
   .footer-logo { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
   .footer-logo span { color: var(--gold-dim); }
   .footer-copy { font-size: 12px; color: var(--text-muted); letter-spacing: 0.06em; }
 
   @media (max-width: 768px) {
-    nav { padding: 18px 24px; }
-    .logo { font-size: 15px; }
-    .nav-links { gap: 16px; }
-    .nav-links a { font-size: 12px; }
+    nav { padding: 14px 20px; }
+    .logo { font-size: 13px; letter-spacing: 0.16em; }
+    .nav-links { gap: 12px; }
+    .nav-links a { font-size: 11px; letter-spacing: 0.06em; }
     .home-line1, .home-line2 { font-size: 24px; letter-spacing: 0.14em; }
     .split-page { flex-direction: column; }
     .split-left { width: 100%; padding: 36px 24px; }
-    .split-right { width: 100%; height: 240px; }
+    .split-right { width: 100%; height: 220px; }
     .split-right-fade { background: linear-gradient(to bottom, var(--bg) 0%, rgba(14,13,11,0) 100%); }
-    .ba-section { padding: 36px 24px; }
-    .ba-container { height: 260px; }
+    .service-title { font-size: 18px; }
+    .service-item { font-size: 14px; }
+    .concierge-item { font-size: 13px; }
+    .step-title { font-size: 16px; }
+    .about-para { font-size: 15px; }
+    .about-para.lead { font-size: 16px; }
+    .begin-option-label { font-size: 16px; }
+    .begin-option-sub { font-size: 12px; }
     footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
   }
 </style>
@@ -514,7 +281,6 @@
   <div class="split-page">
     <div class="split-left">
       <div class="sec-label">Services</div>
-
       <div class="service-block">
         <div class="service-title">Core Services</div>
         <div class="service-desc">All media formats, fully digitized, organized and cataloged.</div>
@@ -523,9 +289,7 @@
         <div class="service-item">Custom inventory design & cataloging</div>
         <div class="service-item">Data extraction from all digital storage formats</div>
       </div>
-
       <div class="service-divider"></div>
-
       <div class="service-block">
         <div class="service-title">Premium Services</div>
         <div class="service-desc">Extend and elevate your archive with expert restoration and enhancement.</div>
@@ -535,9 +299,7 @@
         <div class="service-item">Audio / video editing</div>
         <div class="service-item">Personal digital organization</div>
       </div>
-
       <div class="service-divider"></div>
-
       <div class="service-block">
         <div class="service-title">Luminae Concierge</div>
         <div class="service-desc">Your archive, maintained. Your memories, always within reach.</div>
@@ -545,40 +307,14 @@
           <div class="concierge-item"><div class="c-dot"></div><div>Secure cloud storage up to 1TB, maintenance & scheduled backups</div></div>
           <div class="concierge-item"><div class="c-dot"></div><div>Digital custodian services — routine data health monitoring & on-demand media retrieval</div></div>
           <div class="concierge-item"><div class="c-dot"></div><div>Priority concierge access</div></div>
-          <div class="concierge-pricing">
-            <div><div class="price-val">$500 / mo</div><div class="price-label">Monthly</div></div>
-            <div><div class="price-val">$4,500 / yr</div><div class="price-label">Annual</div><div class="price-save">Save $1,500</div></div>
-          </div>
         </div>
       </div>
     </div>
-
     <div class="split-right">
       <img class="split-right-img" src="images/4.jpg" alt="VHS and Betamax tapes">
       <div class="split-right-fade"></div>
     </div>
   </div>
-
-  <div class="ba-section">
-    <div class="ba-label-row">
-      <div class="ba-title">Photo Restoration</div>
-      <div class="ba-hint">Drag to reveal</div>
-    </div>
-    <div class="ba-container" id="baContainer">
-      <img class="ba-after" src="images/After.png" alt="After restoration">
-      <div class="ba-before-wrap" id="baBeforeWrap">
-        <img class="ba-before" src="images/Before.png" alt="Before restoration" id="baBeforeImg">
-      </div>
-      <div class="ba-handle" id="baHandle">
-        <div class="ba-handle-circle">
-          <span class="ba-arrows">&#8249;&#8250;</span>
-        </div>
-      </div>
-      <div class="ba-badge-before">Before</div>
-      <div class="ba-badge-after">After</div>
-    </div>
-  </div>
-
   <footer><div class="footer-logo">Lumi<span>nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
 </div>
 
@@ -607,7 +343,7 @@
   <div class="split-page">
     <div class="split-left">
       <div class="sec-label">About</div>
-      <div class="about-para lead">Luminae was built on a simple truth. Physical media doesn't last forever, but your legacy should.</div>
+      <div class="about-para lead">Physical media doesn't last forever, your legacy should.</div>
       <div class="about-para">Photos fade. Film degrades. Hard drives fail. Camera cards corrupt. And with them, the moments that matter most can disappear forever.</div>
       <div class="about-para">With 25 years of experience in television, digital media and high-end client tech services, we understand what it means to handle irreplaceable things with care. Our clients expect nothing less than the best.</div>
       <div class="about-para closing">No middlemen. No shortcuts. Just a trusted team dedicated to preserving your story.</div>
@@ -680,29 +416,8 @@
     gsap.set(['#line1', '#line2'], { opacity: 0 });
     gsap.timeline({ delay: 0.5 })
       .to('#line1', { opacity: 1, duration: 2.4, ease: 'power1.inOut' })
-      .to('#line2', { opacity: 1, duration: 2.8, ease: 'power1.inOut' }, '+=0.25');
+      .to('#line2', { opacity: 1, duration: 1.4, ease: 'power1.inOut' }, '+=0.12');
   }
-
-  var baContainer = document.getElementById('baContainer');
-  var baBeforeWrap = document.getElementById('baBeforeWrap');
-  var baBeforeImg = document.getElementById('baBeforeImg');
-  var baHandle = document.getElementById('baHandle');
-  var isDragging = false;
-
-  function setSliderPosition(x) {
-    var rect = baContainer.getBoundingClientRect();
-    var pct = Math.min(Math.max((x - rect.left) / rect.width, 0), 1);
-    baBeforeWrap.style.width = (pct * 100) + '%';
-    baHandle.style.left = (pct * 100) + '%';
-    baBeforeImg.style.width = rect.width + 'px';
-  }
-
-  baContainer.addEventListener('mousedown', function(e) { isDragging = true; setSliderPosition(e.clientX); });
-  baContainer.addEventListener('touchstart', function(e) { isDragging = true; setSliderPosition(e.touches[0].clientX); }, { passive: true });
-  document.addEventListener('mousemove', function(e) { if (isDragging) setSliderPosition(e.clientX); });
-  document.addEventListener('touchmove', function(e) { if (isDragging) setSliderPosition(e.touches[0].clientX); }, { passive: true });
-  document.addEventListener('mouseup', function() { isDragging = false; });
-  document.addEventListener('touchend', function() { isDragging = false; });
 
   function showPage(name) {
     document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
@@ -712,12 +427,6 @@
     if (navEl) navEl.classList.add('active');
     window.scrollTo(0, 0);
     if (name === 'home') { setTimeout(runHomeAnimation, 100); }
-    if (name === 'services') {
-      setTimeout(function() {
-        var rect = baContainer.getBoundingClientRect();
-        baBeforeImg.style.width = rect.width + 'px';
-      }, 50);
-    }
   }
 
   function toggleGate(id) {
