@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luminae — Your Memories, Curated.</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&display=swap');
+
+  :root {
+    --gold: #b89a6a;
+    --gold-dim: #b89a6a;
+    --bg: #0e0d0b;
+    --text-primary: #ede8df;
+    --text-secondary: #ccc4b8;
+    --text-dim: #a09888;
+    --text-muted: #7a7060;
+    --border: #2e2a20;
+    --border-dim: #221e16;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 48px;
+    border-bottom: 0.5px solid var(--border);
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(14,13,11,0.96);
+    backdrop-filter: blur(12px);
+  }
+
+  .logo {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .logo span, .logo .tan { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+
+  .nav-links a {
+    font-size: 16px;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.5s ease;
+    cursor: pointer;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+
+  .page { display: none; min-height: 100vh; padding-top: 72px; }
+  .page.active { display: flex; flex-direction: column; animation: pageFadeIn 1.8s ease forwards; }
+
+  @keyframes pageFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  #page-home {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .home-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('images/1.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5;
+    z-index: 0;
+  }
+
+  .home-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(14,13,11,0.45);
+    z-index: 1;
+  }
+
+  .home-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px;
+    margin-top: -9vh;
+  }
+
+  .home-line1 {
+    font-size: 35px;
+    font-weight: 200;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    display: block;
+    opacity: 0;
+    line-height: 1.1;
+  }
+
+  .home-line2 {
+    font-size: 35px;
+    font-weight: 200;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    opacity: 0;
+    margin-top: 8px;
+    line-height: 1.1;
+  }
+
+  .split-page { flex: 1; display: flex; min-height: calc(100vh - 72px); }
+
+  .split-left {
+    width: 52%;
+    padding: 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .split-right { width: 48%; position: relative; overflow: hidden; }
+
+  .split-right-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    animation: imgFadeIn 3.6s ease forwards 0.2s;
+  }
+
+  @keyframes imgFadeIn {
+    from { opacity: 0; }
+    to { opacity: 0.5; }
+  }
+
+  .split-right-fade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--bg) 0%, rgba(14,13,11,0.5) 35%, rgba(14,13,11,0) 100%);
+    z-index: 1;
+  }
+
+  .sec-label { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 36px; }
+
+  .service-block { margin-bottom: 28px; }
+
+  .service-title {
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text-primary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .service-desc { font-size: 15px; color: var(--gold); line-height: 1.6; margin-bottom: 10px; }
+
+  .service-item {
+    font-size: 16px;
+    color: var(--text-secondary);
+    padding: 6px 0;
+    border-bottom: 0.5px solid var(--border-dim);
+    letter-spacing: 0.02em;
+  }
+
+  .service-item:first-of-type { border-top: 0.5px solid var(--border-dim); }
+  .service-divider { height: 0.5px; background: var(--border); margin: 24px 0; }
+
+  .concierge-box { background: rgba(18,16,12,0.8); border: 0.5px solid var(--border); border-radius: 3px; padding: 18px 20px; margin-top: 10px; }
+  .concierge-item { font-size: 15px; color: var(--text-secondary); padding: 6px 0; border-bottom: 0.5px solid var(--border-dim); display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
+  .concierge-item:last-of-type { border-bottom: none; }
+  .c-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold); opacity: 0.4; margin-top: 8px; flex-shrink: 0; }
+
+  .process-step { display: flex; gap: 18px; align-items: flex-start; }
+  .step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .step-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); opacity: 0.5; margin-top: 8px; }
+  .step-dot.dim { background: var(--text-muted); opacity: 1; }
+  .step-connector { width: 0.5px; background: var(--border); flex: 1; min-height: 28px; }
+  .step-content { padding-bottom: 20px; flex: 1; }
+  .step-title { font-size: 20px; font-weight: 300; color: var(--text-secondary); line-height: 1.4; }
+  .step-note { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+  .about-para { font-size: 18px; font-weight: 300; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px; }
+  .about-para.lead { font-size: 20px; color: var(--text-primary); letter-spacing: 0.04em; line-height: 1.5; margin-bottom: 32px; text-align: center; }
+  .about-para.closing { font-size: 17px; color: var(--text-dim); font-style: italic; }
+
+  .begin-intro { font-size: 17px; color: var(--text-dim); line-height: 1.7; margin-bottom: 36px; }
+  .begin-option { padding: 18px 0; border-top: 0.5px solid var(--border-dim); display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: opacity 0.2s; gap: 16px; }
+  .begin-option:last-of-type { border-bottom: 0.5px solid var(--border-dim); }
+  .begin-option:hover { opacity: 0.7; }
+  .begin-option-label { font-size: 20px; font-weight: 300; color: var(--text-secondary); }
+  .begin-option-sub { font-size: 14px; color: var(--text-muted); margin-top: 3px; }
+  .begin-action { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); border-bottom: 0.5px solid var(--text-muted); padding-bottom: 1px; white-space: nowrap; flex-shrink: 0; transition: color 0.2s, border-color 0.2s; }
+  .begin-option:hover .begin-action { color: var(--gold); border-color: var(--gold); }
+
+  .gate { display: none; background: rgba(18,16,12,0.95); border: 0.5px solid var(--border); border-radius: 3px; padding: 22px 24px; margin-bottom: 2px; }
+  .gate.open { display: block; }
+  .gate-title { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+  .field { margin-bottom: 14px; }
+  .field label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 6px; }
+  .field input { width: 100%; background: transparent; border: none; border-bottom: 0.5px solid #3a3428; padding: 8px 0; font-size: 16px; color: var(--text-secondary); font-family: 'Jost', sans-serif; font-weight: 300; outline: none; transition: border-color 0.2s; -webkit-appearance: none; border-radius: 0; }
+  .field input::placeholder { color: #3a3428; }
+  .field input:focus { border-bottom-color: var(--gold); }
+  .gate-btn { margin-top: 22px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); border: none; border-bottom: 0.5px solid var(--gold); padding-bottom: 1px; cursor: pointer; background: none; font-family: 'Jost', sans-serif; }
+
+  footer { border-top: 0.5px solid var(--border); padding: 22px 48px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+  .footer-logo span { color: var(--gold-dim); }
+  .footer-copy { font-size: 12px; color: var(--text-muted); letter-spacing: 0.06em; }
+
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .logo { font-size: 15px; letter-spacing: 0.12em; }
+    .nav-links { gap: 10px; }
+    .nav-links a { font-size: 10px; letter-spacing: 0.05em; }
+    .home-line1, .home-line2 { font-size: 24px; letter-spacing: 0.14em; }
+    .split-page { flex-direction: column; }
+    .split-left { width: 100%; padding: 36px 24px; }
+    .split-right { width: 100%; height: 220px; }
+    .split-right-fade { background: linear-gradient(to bottom, var(--bg) 0%, rgba(14,13,11,0) 100%); }
+    .service-title { font-size: 18px; }
+    .service-item { font-size: 14px; }
+    .concierge-item { font-size: 13px; }
+    .step-title { font-size: 16px; }
+    .about-para { font-size: 15px; }
+    .about-para.lead { font-size: 16px; }
+    .begin-option-label { font-size: 16px; }
+    .begin-option-sub { font-size: 12px; }
+    footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" onclick="showPage('home')">Lumi<span class="tan">nae</span></a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('services')" id="nav-services">Services</a></li>
+    <li><a onclick="showPage('process')" id="nav-process">Process</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a onclick="showPage('begin')" id="nav-begin">Begin</a></li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="home-bg"></div>
+  <div class="home-overlay"></div>
+  <div class="home-content">
+    <span class="home-line1" id="line1">Your memories,</span>
+    <span class="home-line2" id="line2">curated.</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div id="page-services" class="page">
+  <div class="split-page">
+    <div class="split-left">
+      <div class="sec-label">Services</div>
+      <div class="service-block">
+        <div class="service-title">Core</div>
+        <div class="service-desc">All media formats, fully digitized, organized and cataloged.</div>
+        <div class="service-item">Photos & film slides</div>
+        <div class="service-item">All video and audio formats</div>
+        <div class="service-item">Custom inventory design & cataloging</div>
+        <div class="service-item">Data extraction from all digital storage formats</div>
+      </div>
+      <div class="service-divider"></div>
+      <div class="service-block">
+        <div class="service-title">Premium</div>
+        <div class="service-desc">Extend and elevate your archive with expert restoration and enhancement.</div>
+        <div class="service-item">Digital photo restoration</div>
+        <div class="service-item">Photo enhancement, color correction & upscaling</div>
+        <div class="service-item">Video enhancement, color correction & 4K resolution scaling</div>
+        <div class="service-item">Video / audio editing</div>
+        <div class="service-item">Media library analysis, organization & workflow strategy</div>
+      </div>
+      <div class="service-divider"></div>
+      <div class="service-block">
+        <div class="service-title">Luminae Concierge</div>
+        <div class="service-desc">Your archive, maintained. Your memories, always within reach.</div>
+        <div class="concierge-box">
+          <div class="concierge-item"><div class="c-dot"></div><div>Secure cloud storage up to 1TB</div></div>
+          <div class="concierge-item"><div class="c-dot"></div><div>Regular maintenance, data health monitoring & scheduled backups</div></div>
+          <div class="concierge-item"><div class="c-dot"></div><div>Digital custodian services, on-demand media retrieval and export</div></div>
+          <div class="concierge-item"><div class="c-dot"></div><div>Priority concierge access and support</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="split-right">
+      <img class="split-right-img" src="images/4.jpg" alt="VHS and Betamax tapes">
+      <div class="split-right-fade"></div>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Lumi<span class="tan">nae</span></div><div class="footer-copy">© 2026 Luminae. All rights reserved.</div></footer>
+</div>
+
+<!-- PROCESS -->
+<div id="page-process" class="page">
+  <div class="split-page">
+    <div class="split-left">
+      <div class="sec-label">Process</div>
+      <div class="process-step"><div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">In-person consultation & initial media inventory</div></div></div>
+      <div class="process-step"><div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">Custom quote creation</div></div></div>
+      <div class="process-step"><div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">Secure transport to Luminae Studio</div></div></div>
+      <div class="process-step"><div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">All media formats digitized, restored & catalogued</div></div></div>
+      <div class="process-step"><div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">Personal delivery of originals and complete digital archive</div></div></div>
+      <div class="process-step"><div class="step-line"><div class="step-dot dim"></div></div><div class="step-content"><div class="step-title">Luminae Concierge onboarding</div><div class="step-note">Opt-in required</div></div></div>
+    </div>
+    <div class="split-right">
+      <img class="split-right-img" src="images/6.jpg" alt="White glove handling">
+      <div class="split-right-fade"></div>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Lumi<span class="tan">nae</span></div><div class="footer-copy">© 2026 Luminae. All rights reserved.</div></footer>
+</div>
+
+<!-- ABOUT -->
+<div id="page-about" class="page">
+  <div class="split-page">
+    <div class="split-left">
+      <div class="sec-label">About</div>
+      <div class="about-para lead">Physical media doesn't last forever,<br>your legacy should.</div>
+      <div class="about-para">Photos fade, film degrades, hard drives fail, and with them, the moments that matter most can disappear forever.</div>
+      <div class="about-para">With over 25 years of experience in television production, digital media and tech solutions for high-end clients, we understand what it means to handle irreplaceable things with care. Our clients expect nothing less than the best.</div>
+      <div class="about-para closing">No shortcuts. Just a trusted team dedicated to preserving your story.</div>
+    </div>
+    <div class="split-right">
+      <img class="split-right-img" src="images/5.jpg" alt="Audio cassettes and reels">
+      <div class="split-right-fade"></div>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Lumi<span class="tan">nae</span></div><div class="footer-copy">© 2026 Luminae. All rights reserved.</div></footer>
+</div>
+
+<!-- BEGIN -->
+<div id="page-begin" class="page">
+  <div class="split-page">
+    <div class="split-left">
+      <div class="sec-label">Begin Here</div>
+      <div class="begin-option" onclick="toggleForm('contact-form')">
+        <div><div class="begin-option-label">Book a consultation</div><div class="begin-option-sub">We will reach out to schedule at your convenience</div></div>
+        <div class="begin-action">Connect →</div>
+      </div>
+      <div id="contact-form" style="display:none; margin-bottom: 2px;">
+        <form id="luminae-form" action="https://formspree.io/f/mqeneaov" method="POST" style="background:rgba(18,16,12,0.95);border:0.5px solid #2e2a20;border-radius:3px;padding:28px 28px 24px;">
+          <div class="gate-title" style="margin-bottom:20px;">A few details first</div>
+          <div class="field"><label>Full name</label><input type="text" name="name" placeholder="Your name" required></div>
+          <div class="field"><label>Title / role</label><input type="text" name="role" placeholder="e.g. Estate Manager, Personal Assistant"></div>
+          <div class="field"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required></div>
+          <div class="field"><label>Mobile</label><input type="tel" name="phone" placeholder="+1 (000) 000-0000"></div>
+          <div class="field"><label>Tell us about your collection</label><input type="text" name="collection" placeholder="Rough idea of formats and volume"></div>
+          <div style="margin-top:24px;display:flex;align-items:center;gap:20px;">
+            <button type="submit" class="gate-btn" style="border-bottom:0.5px solid #b89a6a;padding-bottom:1px;">Submit →</button>
+            <span id="form-success" style="display:none;font-size:12px;color:#b89a6a;letter-spacing:0.08em;">Thank you. We will be in touch shortly.</span>
+          </div>
+        </form>
+      </div>
+
+      <div class="begin-option" onclick="openText()">
+        <div><div class="begin-option-label">Send us a message</div><div class="begin-option-sub">Open a pre-filled text directly to our team</div></div>
+        <div class="begin-action">Text us →</div>
+      </div>
+
+    </div>
+    <div class="split-right">
+      <img class="split-right-img" src="images/2.jpg" alt="Film reel">
+      <div class="split-right-fade"></div>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Lumi<span class="tan">nae</span></div><div class="footer-copy">© 2026 Luminae. All rights reserved.</div></footer>
+</div>
+
+<script>
+  function runHomeAnimation() {
+    gsap.set(['#line1', '#line2'], { opacity: 0 });
+    gsap.timeline({ delay: 0 })
+      .to('#line1', { opacity: 1, duration: 2.4, ease: 'power1.inOut' })
+      .to('#line2', { opacity: 1, duration: 3.5, ease: 'power1.inOut' }, 2.0);
+  }
+
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); });
+    document.getElementById('page-' + name).classList.add('active');
+    var navEl = document.getElementById('nav-' + name);
+    if (navEl) navEl.classList.add('active');
+    window.scrollTo(0, 0);
+    if (name === 'home') { setTimeout(runHomeAnimation, 100); }
+  }
+
+  function toggleGate(id) {
+    document.querySelectorAll('.gate').forEach(function(g) { if (g.id !== id) g.classList.remove('open'); });
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  function toggleForm(id) {
+    var el = document.getElementById(id);
+    el.style.display = el.style.display === 'none' ? 'block' : 'none';
+  }
+
+  document.addEventListener('submit', function(e) {
+    if (e.target.id !== 'luminae-form') return;
+    e.preventDefault();
+    var form = e.target;
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(r) {
+      if (r.ok) {
+        form.reset();
+        document.getElementById('form-success').style.display = 'inline';
+      }
+    });
+  });
+
+  function toggleCalendly() {}
+  function openSchedule() { window.open('https://calendly.com/luminaearchive/30min', '_blank'); }
+
+  function openText() {
+    var body = 'Hi Luminae, I would like to learn more about your services.';
+    window.location.href = 'sms:+13232446781?body=' + encodeURIComponent(body);
+  }
+
+  function submitForm() {
+    var name = document.getElementById('f-name').value;
+    alert('Thank you' + (name ? ', ' + name : '') + '. We will be in touch shortly.');
+  }
+
+  window.addEventListener('load', function() { runHomeAnimation(); });
+</script>
+</body>
+</html>
