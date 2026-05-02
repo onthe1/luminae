@@ -234,9 +234,24 @@
   .gate-title { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
   .field { margin-bottom: 14px; }
   .field label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 6px; }
-  .field input { width: 100%; background: transparent; border: none; border-bottom: 0.5px solid #3a3428; padding: 8px 0; font-size: 16px; color: var(--text-secondary); font-family: 'Jost', sans-serif; font-weight: 300; outline: none; transition: border-color 0.2s; -webkit-appearance: none; border-radius: 0; }
-  .field input::placeholder { color: #3a3428; }
-  .field input:focus { border-bottom-color: var(--gold); }
+  .field input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid var(--gold);
+    padding: 8px 0;
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+
+  .field input::placeholder { color: var(--text-dim); }
+  .field input:focus { border-bottom-color: var(--text-primary); }
   .gate-btn { margin-top: 22px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); border: none; border-bottom: 0.5px solid var(--gold); padding-bottom: 1px; cursor: pointer; background: none; font-family: 'Jost', sans-serif; }
 
   footer { border-top: 0.5px solid var(--border); padding: 22px 48px; display: flex; justify-content: space-between; align-items: center; }
@@ -375,17 +390,16 @@
     <div class="split-left">
       <div class="sec-label">Begin Here</div>
       <div class="begin-option" onclick="toggleForm('contact-form')">
-        <div><div class="begin-option-label">Book a consultation</div><div class="begin-option-sub">We will reach out to schedule at your convenience</div></div>
+        <div><div class="begin-option-label">Schedule an introductory call</div><div class="begin-option-sub">We will reach out to confirm at your convenience</div></div>
         <div class="begin-action">Connect →</div>
       </div>
       <div id="contact-form" style="display:none; margin-bottom: 2px;">
         <form id="luminae-form" action="https://formspree.io/f/mqeneaov" method="POST" style="background:rgba(18,16,12,0.95);border:0.5px solid #2e2a20;border-radius:3px;padding:28px 28px 24px;">
           <div class="gate-title" style="margin-bottom:20px;">A few details first</div>
-          <div class="field"><label>Full name</label><input type="text" name="name" placeholder="Your name" required></div>
+          <div class="field"><label>Name</label><input type="text" name="name" placeholder="Your name" required></div>
           <div class="field"><label>Title / role</label><input type="text" name="role" placeholder="e.g. Estate Manager, Personal Assistant"></div>
           <div class="field"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required></div>
-          <div class="field"><label>Mobile</label><input type="tel" name="phone" placeholder="+1 (000) 000-0000"></div>
-          <div class="field"><label>Tell us about your collection</label><input type="text" name="collection" placeholder="Rough idea of formats and volume"></div>
+          <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="+1 (000) 000-0000"></div>
           <div class="field"><label>Preferred date</label><input type="date" name="preferred_date" style="color-scheme:dark;"></div>
           <div class="field"><label>Preferred time</label><input type="time" name="preferred_time" style="color-scheme:dark;"></div>
           <div style="margin-top:24px;display:flex;align-items:center;gap:20px;">
