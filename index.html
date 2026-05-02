@@ -88,14 +88,14 @@
     background-image: url('images/1.jpg');
     background-size: cover;
     background-position: center;
-    opacity: 0.2;
+    opacity: 0.5;
     z-index: 0;
   }
 
   .home-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at center, rgba(14,13,11,0.3) 0%, rgba(14,13,11,0.88) 100%);
+    background: rgba(14,13,11,0.45);
     z-index: 1;
   }
 
@@ -103,25 +103,17 @@
     position: relative;
     z-index: 2;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 72px;
+    text-align: center;
     padding: 48px;
-    width: 100%;
-    max-width: 1100px;
-  }
-
-  .home-text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-shrink: 0;
   }
 
   .home-line1 {
-    font-size: 44px;
+    font-size: 35px;
     font-weight: 200;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--text-primary);
     display: block;
@@ -130,9 +122,9 @@
   }
 
   .home-line2 {
-    font-size: 44px;
+    font-size: 35px;
     font-weight: 200;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--gold);
     display: block;
@@ -140,27 +132,6 @@
     margin-top: 8px;
     line-height: 1.1;
   }
-
-  /* PHOTO */
-  .photo-stage {
-    position: relative;
-    width: 300px;
-    height: 380px;
-    flex-shrink: 0;
-    opacity: 0;
-  }
-
-  .photo-stage img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 2px;
-  }
-
-  #photo-before { opacity: 1; z-index: 1; }
-  #photo-after { opacity: 0; z-index: 2; }
 
   /* SPLIT PAGES */
   .split-page { flex: 1; display: flex; min-height: calc(100vh - 66px); }
@@ -177,7 +148,7 @@
 
   .split-right { width: 48%; position: relative; overflow: hidden; }
 
-  .split-right img {
+  .split-right-img {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -196,6 +167,134 @@
 
   .sec-label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 40px; }
 
+  /* BEFORE/AFTER SLIDER */
+  .ba-section {
+    padding: 48px 56px;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .ba-label-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .ba-title {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+  }
+
+  .ba-hint {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .ba-container {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    height: 360px;
+    overflow: hidden;
+    border-radius: 2px;
+    cursor: col-resize;
+    user-select: none;
+  }
+
+  .ba-after {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    z-index: 1;
+  }
+
+  .ba-before-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 2;
+    width: 50%;
+  }
+
+  .ba-before {
+    position: absolute;
+    top: 0; left: 0;
+    width: 560px;
+    max-width: none;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .ba-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: rgba(255,255,255,0.7);
+    z-index: 3;
+    transform: translateX(-50%);
+  }
+
+  .ba-handle-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.4);
+  }
+
+  .ba-arrows {
+    font-size: 13px;
+    color: #2a2820;
+    letter-spacing: -2px;
+    font-weight: 500;
+  }
+
+  .ba-badge-before {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e8e2d8;
+    background: rgba(14,13,11,0.7);
+    padding: 3px 8px;
+    border-radius: 1px;
+    z-index: 4;
+  }
+
+  .ba-badge-after {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e8e2d8;
+    background: rgba(14,13,11,0.7);
+    padding: 3px 8px;
+    border-radius: 1px;
+    z-index: 4;
+  }
+
+  /* SERVICES */
   .service-block { margin-bottom: 36px; }
   .service-title { font-size: 16px; font-weight: 400; color: var(--text-secondary); letter-spacing: 0.04em; margin-bottom: 4px; }
   .service-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
@@ -253,14 +352,13 @@
     nav { padding: 18px 24px; }
     .nav-links { gap: 16px; }
     .nav-links a { font-size: 10px; }
-    .home-content { flex-direction: column; gap: 32px; padding: 32px 24px; align-items: center; }
-    .home-text { align-items: center; text-align: center; }
-    .home-line1, .home-line2 { font-size: 28px; letter-spacing: 0.12em; }
-    .photo-stage { width: 240px; height: 300px; }
+    .home-line1, .home-line2 { font-size: 22px; letter-spacing: 0.14em; }
     .split-page { flex-direction: column; }
     .split-left { width: 100%; padding: 40px 24px; }
     .split-right { width: 100%; height: 240px; }
     .split-right-fade { background: linear-gradient(to bottom, var(--bg) 0%, rgba(14,13,11,0) 100%); }
+    .ba-section { padding: 40px 24px; }
+    .ba-container { height: 260px; }
     footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
   }
 </style>
@@ -282,14 +380,8 @@
   <div class="home-bg"></div>
   <div class="home-overlay"></div>
   <div class="home-content">
-    <div class="home-text">
-      <span class="home-line1" id="line1">Your memories,</span>
-      <span class="home-line2" id="line2">curated.</span>
-    </div>
-    <div class="photo-stage" id="photoStage">
-      <img id="photo-before" src="images/Before.png" alt="Before restoration">
-      <img id="photo-after" src="images/After.png" alt="After restoration">
-    </div>
+    <span class="home-line1" id="line1">Your memories,</span>
+    <span class="home-line2" id="line2">curated.</span>
   </div>
 </div>
 
@@ -332,10 +424,32 @@
       </div>
     </div>
     <div class="split-right">
-      <img src="images/4.jpg" alt="VHS and Betamax tapes">
+      <img class="split-right-img" src="images/4.jpg" alt="VHS and Betamax tapes">
       <div class="split-right-fade"></div>
     </div>
   </div>
+
+  <!-- BEFORE / AFTER SLIDER -->
+  <div class="ba-section">
+    <div class="ba-label-row">
+      <div class="ba-title">Photo restoration</div>
+      <div class="ba-hint">Drag to reveal</div>
+    </div>
+    <div class="ba-container" id="baContainer">
+      <img class="ba-after" src="images/After.png" alt="After restoration">
+      <div class="ba-before-wrap" id="baBeforeWrap">
+        <img class="ba-before" src="images/Before.png" alt="Before restoration" id="baBeforeImg">
+      </div>
+      <div class="ba-handle" id="baHandle">
+        <div class="ba-handle-circle">
+          <span class="ba-arrows">&#8249;&#8250;</span>
+        </div>
+      </div>
+      <div class="ba-badge-before">Before</div>
+      <div class="ba-badge-after">After</div>
+    </div>
+  </div>
+
   <footer><div class="footer-logo">Lumi<span>nae</span></div><div class="footer-copy">© 2025 Luminae. All rights reserved.</div></footer>
 </div>
 
@@ -352,7 +466,7 @@
       <div class="process-step"><div class="step-line"><div class="step-dot dim"></div></div><div class="step-content"><div class="step-title">Concierge onboarding</div><div class="step-note">Opt-in required</div></div></div>
     </div>
     <div class="split-right">
-      <img src="images/6.jpg" alt="White glove handling">
+      <img class="split-right-img" src="images/6.jpg" alt="White glove handling">
       <div class="split-right-fade"></div>
     </div>
   </div>
@@ -370,7 +484,7 @@
       <div class="about-para closing">No middlemen. No shortcuts. Just a trusted team dedicated to preserving your story.</div>
     </div>
     <div class="split-right">
-      <img src="images/5.jpg" alt="Audio cassettes and reels">
+      <img class="split-right-img" src="images/5.jpg" alt="Audio cassettes and reels">
       <div class="split-right-fade"></div>
     </div>
   </div>
@@ -422,7 +536,7 @@
       </div>
     </div>
     <div class="split-right">
-      <img src="images/2.jpg" alt="Film reel">
+      <img class="split-right-img" src="images/2.jpg" alt="Film reel">
       <div class="split-right-fade"></div>
     </div>
   </div>
@@ -430,16 +544,38 @@
 </div>
 
 <script>
+  /* HOME ANIMATION */
   function runHomeAnimation() {
-    gsap.set(['#line1', '#line2', '#photoStage', '#photo-after'], { opacity: 0 });
-
-    var tl = gsap.timeline({ delay: 0.5 });
-
-    tl.to('#photoStage', { opacity: 1, duration: 1.2, ease: 'power2.out' })
-      .to('#line1', { opacity: 1, duration: 1.2, ease: 'power2.out' }, '-=0.6')
-      .to(['#photo-after', '#line2'], { opacity: 1, duration: 2.5, ease: 'power1.inOut' }, '+=1.5');
+    gsap.set(['#line1', '#line2'], { opacity: 0 });
+    gsap.timeline({ delay: 0.5 })
+      .to('#line1', { opacity: 1, duration: 2.4, ease: 'power1.inOut' })
+      .to('#line2', { opacity: 1, duration: 2.8, ease: 'power1.inOut' }, '+=0.5');
   }
 
+  /* BEFORE/AFTER SLIDER */
+  var baContainer = document.getElementById('baContainer');
+  var baBeforeWrap = document.getElementById('baBeforeWrap');
+  var baBeforeImg = document.getElementById('baBeforeImg');
+  var baHandle = document.getElementById('baHandle');
+  var isDragging = false;
+
+  function setSliderPosition(x) {
+    var rect = baContainer.getBoundingClientRect();
+    var pct = Math.min(Math.max((x - rect.left) / rect.width, 0), 1);
+    var px = pct * 100;
+    baBeforeWrap.style.width = px + '%';
+    baHandle.style.left = px + '%';
+    baBeforeImg.style.width = rect.width + 'px';
+  }
+
+  baContainer.addEventListener('mousedown', function(e) { isDragging = true; setSliderPosition(e.clientX); });
+  baContainer.addEventListener('touchstart', function(e) { isDragging = true; setSliderPosition(e.touches[0].clientX); }, { passive: true });
+  document.addEventListener('mousemove', function(e) { if (isDragging) setSliderPosition(e.clientX); });
+  document.addEventListener('touchmove', function(e) { if (isDragging) setSliderPosition(e.touches[0].clientX); }, { passive: true });
+  document.addEventListener('mouseup', function() { isDragging = false; });
+  document.addEventListener('touchend', function() { isDragging = false; });
+
+  /* PAGE SWITCHING */
   function showPage(name) {
     document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
     document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); });
@@ -448,6 +584,12 @@
     if (navEl) navEl.classList.add('active');
     window.scrollTo(0, 0);
     if (name === 'home') { setTimeout(runHomeAnimation, 100); }
+    if (name === 'services') {
+      setTimeout(function() {
+        var rect = baContainer.getBoundingClientRect();
+        baBeforeImg.style.width = rect.width + 'px';
+      }, 50);
+    }
   }
 
   function toggleGate(id) {
