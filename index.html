@@ -119,89 +119,48 @@
   }
 
   .home-line1 {
-    font-size: 22px;
+    font-size: 44px;
     font-weight: 200;
-    letter-spacing: 0.26em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--text-primary);
     display: block;
     opacity: 0;
+    line-height: 1.1;
   }
 
   .home-line2 {
-    font-size: 22px;
+    font-size: 44px;
     font-weight: 200;
-    letter-spacing: 0.26em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--gold);
     display: block;
     opacity: 0;
-    margin-top: 6px;
-  }
-
-  /* PHOTO + LAMP STAGE */
-  .photo-stage {
-    position: relative;
-    width: 300px;
-    flex-shrink: 0;
-  }
-
-  /* TOLOMEO LAMP SVG */
-  .tolomeo-wrap {
-    position: absolute;
-    top: -180px;
-    right: -60px;
-    opacity: 0;
-    z-index: 5;
-    transform-origin: top right;
-  }
-
-  /* LIGHT CONE */
-  .light-cone {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 280px;
-    height: 340px;
-    background: radial-gradient(ellipse at 50% 0%, rgba(245,220,140,0.22) 0%, rgba(245,220,140,0.08) 40%, rgba(245,220,140,0) 75%);
-    z-index: 2;
-    opacity: 0;
-    pointer-events: none;
+    margin-top: 8px;
+    line-height: 1.1;
   }
 
   /* PHOTO */
-  .photo-frame {
+  .photo-stage {
     position: relative;
     width: 300px;
     height: 380px;
-    border-radius: 2px;
-    overflow: hidden;
-    z-index: 3;
+    flex-shrink: 0;
     opacity: 0;
   }
 
-  .photo-frame img {
+  .photo-stage img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 2px;
   }
 
   #photo-before { opacity: 1; z-index: 1; }
   #photo-after { opacity: 0; z-index: 2; }
-
-  /* FLASH */
-  .photo-flash {
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 240, 200, 0.6);
-    z-index: 4;
-    opacity: 0;
-    pointer-events: none;
-    border-radius: 2px;
-  }
 
   /* SPLIT PAGES */
   .split-page { flex: 1; display: flex; min-height: calc(100vh - 66px); }
@@ -296,10 +255,8 @@
     .nav-links a { font-size: 10px; }
     .home-content { flex-direction: column; gap: 32px; padding: 32px 24px; align-items: center; }
     .home-text { align-items: center; text-align: center; }
-    .home-line1, .home-line2 { font-size: 17px; letter-spacing: 0.2em; }
-    .photo-stage { width: 240px; }
-    .photo-frame { width: 240px; height: 300px; }
-    .tolomeo-wrap { right: -30px; top: -140px; }
+    .home-line1, .home-line2 { font-size: 28px; letter-spacing: 0.12em; }
+    .photo-stage { width: 240px; height: 300px; }
     .split-page { flex-direction: column; }
     .split-left { width: 100%; padding: 40px 24px; }
     .split-right { width: 100%; height: 240px; }
@@ -329,49 +286,9 @@
       <span class="home-line1" id="line1">Your memories,</span>
       <span class="home-line2" id="line2">curated.</span>
     </div>
-
     <div class="photo-stage" id="photoStage">
-      <!-- TOLOMEO LAMP SVG -->
-      <div class="tolomeo-wrap" id="tolomeo">
-        <svg width="220" height="180" viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Wall mount -->
-          <rect x="200" y="0" width="8" height="60" rx="2" fill="#5a5a58" stroke="#3a3a38" stroke-width="0.5"/>
-          <!-- Main arm horizontal -->
-          <line x1="204" y1="20" x2="80" y2="60" stroke="#7a7a76" stroke-width="3" stroke-linecap="round"/>
-          <!-- Tension wire -->
-          <line x1="204" y1="5" x2="80" y2="60" stroke="#4a4a48" stroke-width="0.8" stroke-dasharray="none"/>
-          <!-- Secondary arm down -->
-          <line x1="80" y1="60" x2="95" y2="130" stroke="#7a7a76" stroke-width="3" stroke-linecap="round"/>
-          <!-- Tension wire 2 -->
-          <line x1="70" y1="60" x2="95" y2="130" stroke="#4a4a48" stroke-width="0.8"/>
-          <!-- Joint circle 1 -->
-          <circle cx="80" cy="60" r="5" fill="#6a6a66" stroke="#4a4a46" stroke-width="0.5"/>
-          <!-- Joint circle 2 -->
-          <circle cx="204" cy="20" r="4" fill="#6a6a66" stroke="#4a4a46" stroke-width="0.5"/>
-          <!-- Lamp head -->
-          <ellipse cx="95" cy="133" rx="22" ry="8" fill="#6a6a66" stroke="#4a4a46" stroke-width="0.5"/>
-          <!-- Lamp shade cone -->
-          <path d="M73 133 Q95 155 117 133" fill="#5a5a58" stroke="#3a3a38" stroke-width="0.5"/>
-          <!-- Lamp rim -->
-          <ellipse cx="95" cy="133" rx="22" ry="8" fill="none" stroke="#8a8a86" stroke-width="1"/>
-          <!-- Bulb glow (off state) -->
-          <circle id="lampBulb" cx="95" cy="138" r="4" fill="#2a2820" opacity="0.8"/>
-          <!-- Bulb glow on -->
-          <circle id="lampBulbOn" cx="95" cy="138" r="6" fill="#f5d98a" opacity="0"/>
-          <!-- Spring coil detail on arm -->
-          <path d="M140 42 Q143 39 146 42 Q149 45 152 42 Q155 39 158 42" stroke="#5a5a58" stroke-width="1" fill="none"/>
-        </svg>
-      </div>
-
-      <!-- LIGHT CONE -->
-      <div class="light-cone" id="lightCone"></div>
-
-      <!-- PHOTO -->
-      <div class="photo-frame" id="photoFrame">
-        <div class="photo-flash" id="photoFlash"></div>
-        <img id="photo-before" src="images/Before.png" alt="Before restoration">
-        <img id="photo-after" src="images/After.png" alt="After restoration">
-      </div>
+      <img id="photo-before" src="images/Before.png" alt="Before restoration">
+      <img id="photo-after" src="images/After.png" alt="After restoration">
     </div>
   </div>
 </div>
@@ -514,24 +431,13 @@
 
 <script>
   function runHomeAnimation() {
-    gsap.set(['#line1','#line2','#photoFrame','#tolomeo','#lightCone'], { opacity: 0 });
-    gsap.set('#photo-after', { opacity: 0 });
-    gsap.set('#lampBulbOn', { opacity: 0 });
-    gsap.set('#photoFlash', { opacity: 0 });
+    gsap.set(['#line1', '#line2', '#photoStage', '#photo-after'], { opacity: 0 });
 
-    var tl = gsap.timeline({ delay: 0.4 });
+    var tl = gsap.timeline({ delay: 0.5 });
 
-    tl.to('#photoFrame', { opacity: 1, duration: 1.0, ease: 'power2.out' })
-      .to('#line1', { opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.5')
-      .to('#tolomeo', { opacity: 1, duration: 1.2, ease: 'power2.out' }, '+=0.3')
-      .to('#lightCone', { opacity: 1, duration: 0.8, ease: 'power2.out' }, '+=0.8')
-      .to('#lampBulbOn', { opacity: 1, duration: 0.05, ease: 'none' }, '+=0.1')
-      .to('#lampBulbOn', { opacity: 0.9, duration: 0.05, ease: 'none' })
-      .to('#lampBulbOn', { opacity: 1, duration: 0.05, ease: 'none' })
-      .to('#photoFlash', { opacity: 1, duration: 0.08, ease: 'none' })
-      .to('#photoFlash', { opacity: 0, duration: 0.5, ease: 'power2.out' })
-      .to('#photo-after', { opacity: 1, duration: 1.6, ease: 'power2.inOut' }, '-=0.3')
-      .to('#line2', { opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.8');
+    tl.to('#photoStage', { opacity: 1, duration: 1.2, ease: 'power2.out' })
+      .to('#line1', { opacity: 1, duration: 1.2, ease: 'power2.out' }, '-=0.6')
+      .to(['#photo-after', '#line2'], { opacity: 1, duration: 2.5, ease: 'power1.inOut' }, '+=1.5');
   }
 
   function showPage(name) {
@@ -541,7 +447,7 @@
     var navEl = document.getElementById('nav-' + name);
     if (navEl) navEl.classList.add('active');
     window.scrollTo(0, 0);
-    if (name === 'home') { setTimeout(runHomeAnimation, 200); }
+    if (name === 'home') { setTimeout(runHomeAnimation, 100); }
   }
 
   function toggleGate(id) {
